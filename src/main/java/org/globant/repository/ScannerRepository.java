@@ -1,19 +1,19 @@
-package org.globant.services;
+package org.globant.repository;
 
 import java.util.Scanner;
 
-public class SingletonScanner {
-    private static SingletonScanner instance;
+public class ScannerRepository {
+    private static ScannerRepository instance;
     private final Scanner scanner;
 
 
-    private SingletonScanner() {
+    private ScannerRepository() {
         this.scanner = new Scanner(System.in);
     }
 
-    public  static  SingletonScanner getInstance(){
+    public  static ScannerRepository getInstance(){
         if(instance == null){
-            instance = new SingletonScanner();
+            instance = new ScannerRepository();
         }
         return instance;
     }

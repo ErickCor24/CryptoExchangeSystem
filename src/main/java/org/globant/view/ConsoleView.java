@@ -1,20 +1,20 @@
 package org.globant.view;
 
-import org.globant.controller.user.RootUser;
-import org.globant.controller.user.UserRegister;
-import org.globant.services.SingletonScanner;
+import org.globant.controller.user.UserController;
+import org.globant.services.RegisterUserAccountPort;
+import org.globant.repository.ScannerRepository;
 
 import java.util.Scanner;
 
 public class ConsoleView {
-    Scanner scanner = SingletonScanner.getInstance().getScanner();
-    UserRegister userRegister = new RootUser();
+    Scanner scanner = ScannerRepository.getInstance().getScanner();
+    UserController userController = new UserController();
 
     public ConsoleView() {
         init();
     }
 
-    public void init(){
+    private void init(){
         System.out.println("Crypto Exchange System");
         System.out.println("Select a option");
         System.out.println("1. Login");
@@ -24,6 +24,7 @@ public class ConsoleView {
         scanner.nextLine();
         switch (flag){
             case 1:
+                userController.usersScreen();
                 loginView();
                 break;
             case 2:
@@ -35,30 +36,38 @@ public class ConsoleView {
                 break;
         }
     }
-
-    public void loginView(){
+    private void loginView(){
         String email;
         String password;
         System.out.println("WELCOME AGAIN");
-        System.out.println("Insert your e-amil:");
-        System.out.print("E-mail: ");
-        email = scanner.nextLine();
-        System.out.println("Insert your password:");
-        System.out.print("Password: ");
-        password = scanner.nextLine();
+        email = emailUserInput();
+        password = passwordUserInput();
+        userController.loginUserSystem(email, password);
+        System.out.println(userController.userLoginScreen());
+    }
+    private void registerView(){
+        System.out.println("WELCOME, PLEASE ENTER THE NEXT DATA");
+        String name = nameUserInput();
+        String email = emailUserInput();
+        String password = passwordUserInput();
+        userController.registerUserRepository(name, email, password);
     }
 
-    public void registerView(){
-        System.out.println("WELCOME, PLEASE ENTER THE NEXT DATA");
+    private String nameUserInput (){
         System.out.println("Insert your name:");
         System.out.print("Name: ");
-        String name = scanner.nextLine();
+        return scanner.nextLine();
+    }
+
+    private String emailUserInput (){
         System.out.println("Insert your e-amil:");
         System.out.print("E-mail: ");
-        String email = scanner.nextLine();
+        return scanner.nextLine();
+    }
+
+    private String passwordUserInput (){
         System.out.println("Insert your password:");
         System.out.print("Password: ");
-        String password = scanner.nextLine();
-        userRegister.userRegister(name,email,password);
+        return scanner.nextLine();
     }
 }
