@@ -1,4 +1,4 @@
-package org.globant.model.Order;
+package org.globant.model.order;
 
 public abstract class Order {
 }

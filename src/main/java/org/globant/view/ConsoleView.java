@@ -1,12 +1,14 @@
 package org.globant.view;
 
-import org.globant.controller.SingletonScanner;
+import org.globant.controller.user.RootUser;
+import org.globant.controller.user.UserRegister;
+import org.globant.services.SingletonScanner;
 
-import javax.sound.midi.Soundbank;
 import java.util.Scanner;
 
 public class ConsoleView {
     Scanner scanner = SingletonScanner.getInstance().getScanner();
+    UserRegister userRegister = new RootUser();
 
     public ConsoleView() {
         init();
@@ -26,6 +28,7 @@ public class ConsoleView {
                 break;
             case 2:
                 registerView();
+                init();
                 break;
             default:
                 System.out.println("Good Bye!");
@@ -46,14 +49,16 @@ public class ConsoleView {
     }
 
     public void registerView(){
-        String email;
-        String password;
-        System.out.println("WELCOME AGAIN");
+        System.out.println("WELCOME, PLEASE ENTER THE NEXT DATA");
+        System.out.println("Insert your name:");
+        System.out.print("Name: ");
+        String name = scanner.nextLine();
         System.out.println("Insert your e-amil:");
         System.out.print("E-mail: ");
-        email = scanner.nextLine();
+        String email = scanner.nextLine();
         System.out.println("Insert your password:");
         System.out.print("Password: ");
-        password = scanner.nextLine();
+        String password = scanner.nextLine();
+        userRegister.userRegister(name,email,password);
     }
 }

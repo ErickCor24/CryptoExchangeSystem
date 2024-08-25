@@ -1,4 +1,4 @@
-package org.globant.controller;
+package org.globant.services;
 
 import java.util.Scanner;
 
