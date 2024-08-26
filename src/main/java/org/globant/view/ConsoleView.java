@@ -1,20 +1,19 @@
 package org.globant.view;
 
 import org.globant.controller.user.UserController;
-import org.globant.services.RegisterUserAccountPort;
 import org.globant.repository.ScannerRepository;
-
 import java.util.Scanner;
 
 public class ConsoleView {
     Scanner scanner = ScannerRepository.getInstance().getScanner();
     UserController userController = new UserController();
+    HomeView homeView = new HomeView();
 
     public ConsoleView() {
         init();
     }
 
-    private void init(){
+    public void init(){
         System.out.println("Crypto Exchange System");
         System.out.println("Select a option");
         System.out.println("1. Login");
@@ -25,7 +24,8 @@ public class ConsoleView {
         switch (flag){
             case 1:
                 userController.usersScreen();
-                loginView();
+//                loginView();
+                homeView.home();
                 break;
             case 2:
                 registerView();
@@ -44,6 +44,7 @@ public class ConsoleView {
         password = passwordUserInput();
         userController.loginUserSystem(email, password);
         System.out.println(userController.userLoginScreen());
+        homeView.home();
     }
     private void registerView(){
         System.out.println("WELCOME, PLEASE ENTER THE NEXT DATA");

@@ -4,7 +4,6 @@ import org.globant.repository.LoginUserRepository;
 import org.globant.repository.UserMemoryRepository;
 import org.globant.model.user.User;
 
-import java.util.List;
 import java.util.Map;
 
 public class UserService implements RegisterUserAccountPort, DepositUserAccountPort, WithdrawUserAccountPort, LoginUserPort {
