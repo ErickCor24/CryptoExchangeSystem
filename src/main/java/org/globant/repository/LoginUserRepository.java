@@ -19,6 +19,10 @@ public class LoginUserRepository {
         return instance;
     }
 
+    public String getUserNameLogin (){
+        return this.userLogin.getUserName();
+    }
+
     public void changeUserLogin(int userId, User userLogin){
         this.userId = userId;
         this.userLogin = userLogin;

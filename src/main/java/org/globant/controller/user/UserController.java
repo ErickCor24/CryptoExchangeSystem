@@ -19,8 +19,8 @@ public class UserController {
     private final LoginUserRepository loginUserRepository = LoginUserRepository.getInstance();
     private User user;
 
-    RegisterUserAccountPort registerUserAccount = new UserServiceImpl();
-    LoginUserPort loginUser = new UserServiceImpl();
+    RegisterUserAccountPort registerUserAccount = new UserServiceImpl(userMemoryRepository, loginUserRepository);
+    LoginUserPort loginUser = new UserServiceImpl(userMemoryRepository, loginUserRepository);
     UserWalletServiceImpl userWalletService = new UserWalletServiceImpl(loginUserRepository,userMemoryRepository);
 
     public void registerUserRepository(String name, String email, String password) {
@@ -34,19 +34,22 @@ public class UserController {
         }
     }
 
-    public void loginUserSystem (String email, String password){
+    public boolean loginUserSystem (String email, String password){
         var userLogin= loginUser.searchUserAccount(email, password);
         if(userLogin != null){
             int userId = loginUser.searchIdByUser(userLogin);
             if (userId >= 0){
                 loginUser.enterUserSystem(userId, userLogin);
+                return true;
             }
             else {
                 System.out.println("User id account not found :(");
+                return false;
             }
         }
         else {
             System.out.println("User account not found :(");
+            return false;
         }
     }
 
@@ -59,7 +62,17 @@ public class UserController {
     }
 
     public void depositFiat(String amount){
-        userWalletService.depositFiat(amount);
+        try {
+            Double.parseDouble(amount);
+            userWalletService.depositFiat(amount);
+        } catch (NumberFormatException e){
+            System.out.println("Enter a valid number");
+        }
+
+    }
+
+    public String userNameLogin (){
+        return loginUserRepository.getUserNameLogin();
     }
 
     public void usersScreen (){

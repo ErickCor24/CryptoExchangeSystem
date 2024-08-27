@@ -8,7 +8,6 @@ public class ConsoleView {
     Scanner scanner = ScannerRepository.getInstance().getScanner();
     UserController userController = new UserController();
 
-
     public ConsoleView() {
         init();
     }
@@ -18,34 +17,49 @@ public class ConsoleView {
         System.out.println("Select a option");
         System.out.println("1. Login");
         System.out.println("2. Register");
-        System.out.println("Any other key to shut down the system");
-        int flag = scanner.nextInt();
+        System.out.println("Any other number key to shut down the system");
+        int flag = enterNumber();
         scanner.nextLine();
-        switch (flag){
-            case 1:
-                userController.usersScreen();
-                loginView();
-                HomeView homeView = new HomeView();
-                break;
-            case 2:
-                registerView();
-                init();
-                break;
-            default:
-                System.out.println("Good Bye!");
-                System.exit(0);
-                break;
+        blankSpace();
+        if(flag != -1){
+            switch (flag){
+                case 1:
+                    userController.usersScreen();
+                    boolean loginFlag = loginView();
+                    if(loginFlag){
+                        blankSpace();
+                        HomeView homeView = new HomeView();
+                    }
+                    else {
+                        init();
+                    }
+                    break;
+                case 2:
+                    registerView();
+                    init();
+                    break;
+                default:
+                    System.out.println("Good Bye!");
+                    System.exit(0);
+                    break;
             }
+        } else {
+            init();
+        }
+
     }
-    private void loginView(){
+    private boolean loginView(){
         String email;
         String password;
         System.out.println("WELCOME AGAIN");
         email = emailUserInput();
         password = passwordUserInput();
-        userController.loginUserSystem(email, password);
-        System.out.println(userController.userLoginScreen());
-        HomeView homeView = new HomeView();
+        boolean flag = userController.loginUserSystem(email, password);
+        if (flag){
+            System.out.println(userController.userLoginScreen());
+        }
+        blankSpace();
+        return flag;
     }
     private void registerView(){
         System.out.println("WELCOME, PLEASE ENTER THE NEXT DATA");
@@ -53,6 +67,7 @@ public class ConsoleView {
         String email = emailUserInput();
         String password = passwordUserInput();
         userController.registerUserRepository(name, email, password);
+        blankSpace();
     }
 
     private String nameUserInput (){
@@ -71,5 +86,18 @@ public class ConsoleView {
         System.out.println("Insert your password:");
         System.out.print("Password: ");
         return scanner.nextLine();
+    }
+
+    private int enterNumber(){
+        if(scanner.hasNextInt())
+            return scanner.nextInt();
+        else {
+            System.out.println("Enter a valid number");
+            return -1;
+        }
+    }
+
+    private void blankSpace (){
+        System.out.println();
     }
 }
