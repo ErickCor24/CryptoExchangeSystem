@@ -34,9 +34,6 @@ public class LoginUserRepository {
 
     @Override
     public String toString() {
-        return "LoginUserRepository{" +
-                "userLogin=" + userLogin +
-                ", userId=" + userId +
-                '}';
+        return userLogin.toString() + ", userId:" + userId;
     }
 }

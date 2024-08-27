@@ -28,11 +28,8 @@ public class User {
 
     @Override
     public String toString() {
-        return "name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", userName='" + userName + '\'' +
-                "Wallet = " + userWallet.toString();
+        return "Name:'" + name + ", E-mail:" + email +", Password:'" + password +
+                ", User Name: '" + userName + userWallet.toString();
     }
 
     public String getName() {

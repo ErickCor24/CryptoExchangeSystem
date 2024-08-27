@@ -5,11 +5,11 @@ import org.globant.repository.ExchangeWalletRepository;
 
 import java.math.BigDecimal;
 
-public class WalletServiceImpl implements WithdrawExchangeWallet {
+public class WalletPortServiceImpl implements WithdrawExchangeWalletPort {
 
     ExchangeWalletRepository exchangeWalletRepository;
 
-    public WalletServiceImpl() {
+    public WalletPortServiceImpl() {
         this.exchangeWalletRepository = ExchangeWalletRepository.getInstance();
     }
 

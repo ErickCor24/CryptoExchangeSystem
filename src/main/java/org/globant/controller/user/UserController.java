@@ -8,7 +8,7 @@ import org.globant.repository.UserMemoryRepository;
 import org.globant.services.userServices.LoginUserPort;
 import org.globant.services.userServices.RegisterUserAccountPort;
 import org.globant.services.userServices.UserServiceImpl;
-import org.globant.services.userWalletService.UserWalletServiceImpl;
+import org.globant.services.userWalletService.UserWalletPortServiceImpl;
 
 import java.util.Map;
 
@@ -21,7 +21,6 @@ public class UserController {
 
     RegisterUserAccountPort registerUserAccount = new UserServiceImpl(userMemoryRepository, loginUserRepository);
     LoginUserPort loginUser = new UserServiceImpl(userMemoryRepository, loginUserRepository);
-    UserWalletServiceImpl userWalletService = new UserWalletServiceImpl(loginUserRepository,userMemoryRepository);
 
     public void registerUserRepository(String name, String email, String password) {
         try {
@@ -53,22 +52,8 @@ public class UserController {
         }
     }
 
-    public void depositUserWallet (Cryptos cryptos, String amount){
-
-    }
-
     public String userLoginScreen(){
         return loginUserRepository.toString();
-    }
-
-    public void depositFiat(String amount){
-        try {
-            Double.parseDouble(amount);
-            userWalletService.depositFiat(amount);
-        } catch (NumberFormatException e){
-            System.out.println("Enter a valid number");
-        }
-
     }
 
     public String userNameLogin (){

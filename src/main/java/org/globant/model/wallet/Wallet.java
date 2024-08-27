@@ -55,7 +55,7 @@ public class Wallet {
     }
 
     public void addEthereum(BigDecimal amount) {
-        this.bitCoin = this.bitCoin.add(amount);
+        this.ethereum = this.ethereum.add(amount);
     }
 
     public boolean removeEthereum(BigDecimal amount){

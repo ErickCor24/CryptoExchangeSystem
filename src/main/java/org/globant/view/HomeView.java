@@ -1,15 +1,18 @@
 package org.globant.view;
 
 import org.globant.controller.user.UserController;
+import org.globant.controller.wallet.ExchangeWalletController;
+import org.globant.controller.wallet.UserWalletController;
 import org.globant.repository.ScannerRepository;
 
 import java.util.Map;
 import java.util.Scanner;
 
 public class HomeView {
-
+    ExchangeWalletController exchangeWalletController = new ExchangeWalletController();
     UserController userController = new UserController();
     Scanner scanner = ScannerRepository.getInstance().getScanner();
+    UserWalletController userWalletController = new UserWalletController();
 
     public HomeView() {
         home();
@@ -56,10 +59,7 @@ public class HomeView {
     }
 
     private void cryptocurrenciesValue (){
-        System.out.println("Bitcoin: 5000");
-        System.out.println("Ethereum: 5000");
-        System.out.println("UnisWap: 5000");
-        System.out.println("Press any key to return");
+        System.out.println(exchangeWalletController.screenCryptosPrice());
         String flag = scanner.nextLine();
         if(flag != null){
             home();
@@ -83,7 +83,7 @@ public class HomeView {
     private void depositFiatView(){
         System.out.println("Deposit to user account");
         String value = scanner.nextLine();
-        userController.depositFiat(value.trim());
+        userWalletController.depositFiat(value.trim());
         blankSpace();
     }
 

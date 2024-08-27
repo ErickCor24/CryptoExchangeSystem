@@ -17,30 +17,26 @@ public class UserWallet extends Wallet{
         this.fiat = this.fiat.add(amount);
     }
 
-    public boolean removeFiat (BigDecimal amount){
+    public void removeFiat(BigDecimal amount){
         if(this.fiat.compareTo(amount)>= 0){
             this.fiat = this.fiat.subtract(amount);
-            return true;
-        }
-        else {
-            return false;
         }
     }
 
     @Override
     public String toString() {
-        String value = "Test";
+        String value = "";
         if(fiat.compareTo(BigDecimal.ZERO) > 0){
             value = value +"Cash: " + fiat;
         }
         if (bitCoin.compareTo(BigDecimal.ZERO) > 0){
-            value = value +"Bitcoin: " + bitCoin;
+            value = value +" - Bitcoin: " + bitCoin;
         }
         if (ethereum.compareTo(BigDecimal.ZERO) > 0){
-            value = value +"Ethereum:  " + ethereum;
+            value = value +" - Ethereum:  " + ethereum;
         }
         if (unisWap.compareTo(BigDecimal.ZERO) > 0){
-            value = value +"UnisWap: " + unisWap;
+            value = value +" - UnisWap: " + unisWap;
         }
         return value;
     }
