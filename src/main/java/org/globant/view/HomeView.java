@@ -1,5 +1,6 @@
 package org.globant.view;
 
+import org.globant.controller.user.UserController;
 import org.globant.repository.ScannerRepository;
 
 import java.util.Map;
@@ -7,8 +8,13 @@ import java.util.Scanner;
 
 public class HomeView {
 
+    UserController userController = new UserController();
     Scanner scanner = ScannerRepository.getInstance().getScanner();
-    MarketView marketView = new MarketView();
+
+    public HomeView() {
+        home();
+    }
+
     public void home (){
         System.out.println("Welcome *name user*");
         System.out.println("Select a option");
@@ -27,7 +33,7 @@ public class HomeView {
                 cryptocurrenciesValue();
                 break;
             case 3:
-                marketView.marketHome();
+                MarketView marketView = new MarketView();
                 break;
             case 4:
                 depositFiatView();
@@ -64,6 +70,7 @@ public class HomeView {
     private void depositFiatView(){
         System.out.println("Deposit to user account");
         String value = scanner.nextLine();
+        userController.depositFiat(value);
     }
 
 }

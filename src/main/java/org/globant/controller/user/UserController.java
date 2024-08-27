@@ -8,17 +8,20 @@ import org.globant.repository.UserMemoryRepository;
 import org.globant.services.userServices.LoginUserPort;
 import org.globant.services.userServices.RegisterUserAccountPort;
 import org.globant.services.userServices.UserServiceImpl;
+import org.globant.services.userWalletService.UserWalletServiceImpl;
 
 import java.util.Map;
 
 public class UserController {
 
-    private final Map<Integer,User> users = UserMemoryRepository.getInstance().getUsers();
+    UserMemoryRepository userMemoryRepository = UserMemoryRepository.getInstance();
+    private final Map<Integer,User> users = userMemoryRepository.getUsers();
     private final LoginUserRepository loginUserRepository = LoginUserRepository.getInstance();
     private User user;
 
     RegisterUserAccountPort registerUserAccount = new UserServiceImpl();
     LoginUserPort loginUser = new UserServiceImpl();
+    UserWalletServiceImpl userWalletService = new UserWalletServiceImpl(loginUserRepository,userMemoryRepository);
 
     public void registerUserRepository(String name, String email, String password) {
         try {
@@ -53,6 +56,10 @@ public class UserController {
 
     public String userLoginScreen(){
         return loginUserRepository.toString();
+    }
+
+    public void depositFiat(String amount){
+        userWalletService.depositFiat(amount);
     }
 
     public void usersScreen (){
