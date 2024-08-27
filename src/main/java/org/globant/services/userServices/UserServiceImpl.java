@@ -10,9 +10,9 @@ public class UserServiceImpl implements RegisterUserAccountPort, DepositUserAcco
     UserMemoryRepository userMemoryRepository;
     LoginUserRepository loginUserRepository;
 
-    public UserServiceImpl() {
-        this.userMemoryRepository = UserMemoryRepository.getInstance();
-        this.loginUserRepository = LoginUserRepository.getInstance();
+    public UserServiceImpl(UserMemoryRepository userMemoryRepository, LoginUserRepository loginUserRepository) {
+        this.userMemoryRepository = userMemoryRepository;
+        this.loginUserRepository = loginUserRepository;
     }
 
     @Override

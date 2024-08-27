@@ -3,7 +3,6 @@ package org.globant.controller.wallet;
 import org.globant.enums.Cryptos;
 import org.globant.model.wallet.ExchangeWallet;
 import org.globant.repository.ExchangeWalletRepository;
-import org.globant.services.userWalletService.UserWalletServiceImpl;
 import org.globant.services.walletService.WalletServiceImpl;
 
 public class ExchangeWalletController {
@@ -11,11 +10,21 @@ public class ExchangeWalletController {
     WalletServiceImpl walletService = new WalletServiceImpl();
 
     public boolean withdrawExchange(Cryptos cryptos, String amount){
-        amount = amount.replace(",",".");
-        return walletService.withdraw(cryptos, amount);
+            amount = amount.replace(",",".");
+            return walletService.withdraw(cryptos, amount);
     }
 
     public String screenExchangeWallet (){
         return this.exchangeWallet.toString();
+    }
+
+    public boolean changeStringDouble (String var){
+        try {
+            var = var.replace(",",".");
+            Double.parseDouble(var);
+            return true;
+        } catch (NumberFormatException e){
+            return false;
+        }
     }
 }

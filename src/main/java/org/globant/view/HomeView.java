@@ -16,32 +16,43 @@ public class HomeView {
     }
 
     public void home (){
-        System.out.println("Welcome *name user*");
+        System.out.println("Welcome " + userController.userNameLogin());
         System.out.println("Select a option");
         System.out.println("1. My wallet");
         System.out.println("2. Cryptocurrency price");
         System.out.println("3. Market");
         System.out.println("4. Deposit fiat");
         System.out.println("0. Logout");
-        int option = scanner.nextInt();
+        int option = enterNumber();
         scanner.nextLine();
-        switch (option){
-            case 1:
-                userWalletView();
-                break;
-            case 2:
-                cryptocurrenciesValue();
-                break;
-            case 3:
-                MarketView marketView = new MarketView();
-                break;
-            case 4:
-                depositFiatView();
-                break;
-            case 0:
-                ConsoleView consoleView = new ConsoleView();
-                break;
+        blankSpace();
+        if (option >= 0){
+            switch (option){
+                case 1:
+                    userWalletView();
+                    break;
+                case 2:
+                    cryptocurrenciesValue();
+                    break;
+                case 3:
+                    MarketView marketView = new MarketView();
+                    break;
+                case 4:
+                    depositFiatView();
+                    home();
+                    break;
+                case 0:
+                    ConsoleView consoleView = new ConsoleView();
+                    break;
+                default:
+                    home();
+                    break;
+            }
         }
+        else {
+            home();
+        }
+
     }
 
     private void cryptocurrenciesValue (){
@@ -53,6 +64,7 @@ public class HomeView {
         if(flag != null){
             home();
         }
+        blankSpace();
     }
 
     private void userWalletView(){
@@ -65,12 +77,26 @@ public class HomeView {
         if(flag != null){
             home();
         }
+        blankSpace();
     }
 
     private void depositFiatView(){
         System.out.println("Deposit to user account");
         String value = scanner.nextLine();
-        userController.depositFiat(value);
+        userController.depositFiat(value.trim());
+        blankSpace();
     }
 
+    private int enterNumber(){
+        if(scanner.hasNextInt())
+            return scanner.nextInt();
+        else {
+            System.out.println("Enter a valid number");
+            return -1;
+        }
+    }
+
+    private void blankSpace (){
+        System.out.println();
+    }
 }
