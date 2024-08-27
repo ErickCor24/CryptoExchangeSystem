@@ -2,6 +2,7 @@ package org.globant.view;
 
 import org.globant.controller.user.UserController;
 import org.globant.controller.wallet.ExchangeWalletController;
+import org.globant.controller.wallet.UserWalletController;
 import org.globant.enums.Cryptos;
 import org.globant.repository.ScannerRepository;
 
@@ -11,6 +12,7 @@ public class MarketView {
 
     ExchangeWalletController exchangeWalletController = new ExchangeWalletController();
     UserController userController = new UserController();
+    UserWalletController userWalletController = new UserWalletController();
     Scanner scanner = ScannerRepository.getInstance().getScanner();
 
     public MarketView() {
@@ -100,9 +102,13 @@ public class MarketView {
         blankSpace();
         if (exchangeWalletController.changeStringDouble(amount)){
             if(exchangeWalletController.withdrawExchange(cryptos, amount)){
-                userController.depositUserWallet(cryptos, amount);
-                System.out.println(cryptoType + " sell successfully");
-                System.out.println(exchangeWalletController.screenExchangeWallet());
+                if(userWalletController.depositUserWallet(cryptos, amount)){
+                    System.out.println(cryptoType + " sell successfully");
+                    System.out.println(exchangeWalletController.screenExchangeWallet());
+                }
+                else {
+                    System.out.println("Your account not have necessary fiat");
+                }
             }
             else {
                 System.out.println("No funds available on Exchange :( \n");
