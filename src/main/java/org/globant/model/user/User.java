@@ -10,14 +10,14 @@ public class User {
     private String email;
     private String password;
     private final String userName;
-    private UserWallet userwallet;
+    private UserWallet userWallet;
 
     public User(String name, String email, String password) {
         this.name = name;
         this.userName = userNameGenerator();
         this.email = email;
         this.password = password;
-        this.userwallet = new UserWallet();
+        this.userWallet = new UserWallet();
     }
 
     public String userNameGenerator(){
@@ -31,7 +31,8 @@ public class User {
         return "name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", userName='" + userName + '\'';
+                ", userName='" + userName + '\'' +
+                "Wallet = " + userWallet.toString();
     }
 
     public String getName() {
@@ -60,5 +61,13 @@ public class User {
 
     public String getUserName() {
         return userName;
+    }
+
+    public UserWallet getUserWallet() {
+        return userWallet;
+    }
+
+    public void setUserWallet(UserWallet userWallet) {
+        this.userWallet = userWallet;
     }
 }

@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class ConsoleView {
     Scanner scanner = ScannerRepository.getInstance().getScanner();
     UserController userController = new UserController();
-    HomeView homeView = new HomeView();
+
 
     public ConsoleView() {
         init();
@@ -24,8 +24,8 @@ public class ConsoleView {
         switch (flag){
             case 1:
                 userController.usersScreen();
-//                loginView();
-                homeView.home();
+                loginView();
+                HomeView homeView = new HomeView();
                 break;
             case 2:
                 registerView();
@@ -33,8 +33,9 @@ public class ConsoleView {
                 break;
             default:
                 System.out.println("Good Bye!");
+                System.exit(0);
                 break;
-        }
+            }
     }
     private void loginView(){
         String email;
@@ -44,7 +45,7 @@ public class ConsoleView {
         password = passwordUserInput();
         userController.loginUserSystem(email, password);
         System.out.println(userController.userLoginScreen());
-        homeView.home();
+        HomeView homeView = new HomeView();
     }
     private void registerView(){
         System.out.println("WELCOME, PLEASE ENTER THE NEXT DATA");

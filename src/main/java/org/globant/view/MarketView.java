@@ -13,6 +13,10 @@ public class MarketView {
     UserController userController = new UserController();
     Scanner scanner = ScannerRepository.getInstance().getScanner();
 
+    public MarketView() {
+        marketHome();
+    }
+
     public void marketHome(){
         System.out.println("1. Buy cryptocurrencies on exchange");
         System.out.println("2. Create a purchase order");
@@ -68,14 +72,13 @@ public class MarketView {
 
     private void returnHome(){
         HomeView homeView = new HomeView();
-        homeView.home();
     }
 
     private String amountEnter (){
         return scanner.nextLine();
     }
 
-    private void cryptoBuy(Cryptos cryptos, String cryptoType){
+    private void  cryptoBuy(Cryptos cryptos, String cryptoType){
         System.out.println("Enter the amount to buy");
         String amount = amountEnter();
         if(exchangeWalletController.withdrawExchange(cryptos, amount)){

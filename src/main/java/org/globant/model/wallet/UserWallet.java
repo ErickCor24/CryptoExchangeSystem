@@ -29,7 +29,7 @@ public class UserWallet extends Wallet{
 
     @Override
     public String toString() {
-        String value = "";
+        String value = "Test";
         if(fiat.compareTo(BigDecimal.ZERO) > 0){
             value = value +"Cash: " + fiat;
         }
