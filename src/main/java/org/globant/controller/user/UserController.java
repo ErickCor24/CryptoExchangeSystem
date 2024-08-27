@@ -1,14 +1,14 @@
 package org.globant.controller.user;
 
+import org.globant.enums.Cryptos;
 import org.globant.model.user.User;
 import org.globant.model.user.UserRegisterException;
 import org.globant.repository.LoginUserRepository;
 import org.globant.repository.UserMemoryRepository;
-import org.globant.services.LoginUserPort;
-import org.globant.services.RegisterUserAccountPort;
-import org.globant.services.UserService;
+import org.globant.services.userServices.LoginUserPort;
+import org.globant.services.userServices.RegisterUserAccountPort;
+import org.globant.services.userServices.UserServiceImpl;
 
-import java.util.List;
 import java.util.Map;
 
 public class UserController {
@@ -17,8 +17,8 @@ public class UserController {
     private final LoginUserRepository loginUserRepository = LoginUserRepository.getInstance();
     private User user;
 
-    RegisterUserAccountPort registerUserAccount = new UserService();
-    LoginUserPort loginUser = new UserService();
+    RegisterUserAccountPort registerUserAccount = new UserServiceImpl();
+    LoginUserPort loginUser = new UserServiceImpl();
 
     public void registerUserRepository(String name, String email, String password) {
         try {
@@ -45,6 +45,10 @@ public class UserController {
         else {
             System.out.println("User account not found :(");
         }
+    }
+
+    public void depositUserWallet (Cryptos cryptos, String amount){
+
     }
 
     public String userLoginScreen(){

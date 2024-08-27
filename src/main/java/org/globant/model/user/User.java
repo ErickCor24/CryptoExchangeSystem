@@ -1,5 +1,6 @@
 package org.globant.model.user;
 
+import org.globant.model.wallet.UserWallet;
 import org.globant.model.wallet.Wallet;
 
 import java.util.Random;
@@ -9,14 +10,14 @@ public class User {
     private String email;
     private String password;
     private final String userName;
-    private Wallet wallet;
+    private UserWallet userwallet;
 
     public User(String name, String email, String password) {
         this.name = name;
         this.userName = userNameGenerator();
         this.email = email;
         this.password = password;
-        this.wallet = null;
+        this.userwallet = new UserWallet();
     }
 
     public String userNameGenerator(){

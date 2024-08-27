@@ -1,4 +1,4 @@
-package org.globant.services;
+package org.globant.services.userServices;
 
 public interface WithdrawUserAccountPort {
 }

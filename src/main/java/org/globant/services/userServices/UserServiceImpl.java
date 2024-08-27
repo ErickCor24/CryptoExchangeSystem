@@ -1,4 +1,4 @@
-package org.globant.services;
+package org.globant.services.userServices;
 
 import org.globant.repository.LoginUserRepository;
 import org.globant.repository.UserMemoryRepository;
@@ -6,11 +6,11 @@ import org.globant.model.user.User;
 
 import java.util.Map;
 
-public class UserService implements RegisterUserAccountPort, DepositUserAccountPort, WithdrawUserAccountPort, LoginUserPort {
+public class UserServiceImpl implements RegisterUserAccountPort, DepositUserAccountPort, WithdrawUserAccountPort, LoginUserPort {
     UserMemoryRepository userMemoryRepository;
     LoginUserRepository loginUserRepository;
 
-    public UserService() {
+    public UserServiceImpl() {
         this.userMemoryRepository = UserMemoryRepository.getInstance();
         this.loginUserRepository = LoginUserRepository.getInstance();
     }
