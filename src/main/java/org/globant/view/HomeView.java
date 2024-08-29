@@ -3,67 +3,71 @@ package org.globant.view;
 import org.globant.controller.user.UserController;
 import org.globant.controller.wallet.ExchangeWalletController;
 import org.globant.controller.wallet.UserWalletController;
-import org.globant.repository.ScannerRepository;
 
-import java.util.Map;
 import java.util.Scanner;
 
 public class HomeView {
-    ExchangeWalletController exchangeWalletController = new ExchangeWalletController();
-    UserController userController = new UserController();
-    Scanner scanner = ScannerRepository.getInstance().getScanner();
-    UserWalletController userWalletController = new UserWalletController();
 
-    public HomeView() {
-        home();
+    ExchangeWalletController exchangeWalletController;
+    UserController userController;
+    UserWalletController userWalletController;
+    MarketView marketView;
+    ColorView color;
+    Scanner scanner;
+
+    public HomeView(MarketView marketView, ExchangeWalletController exchangeWalletController,UserController userController, UserWalletController userWalletController, Scanner scanner, ColorView color) {
+        this.marketView = marketView;
+        this.exchangeWalletController = exchangeWalletController;
+        this.userController = userController;
+        this.userWalletController = userWalletController;
+        this.scanner = scanner;
+        this.color = color;
     }
 
     public void home (){
-        System.out.println("Welcome " + userController.userNameLogin());
-        System.out.println("Select a option");
-        System.out.println("1. My wallet");
-        System.out.println("2. Cryptocurrency price");
-        System.out.println("3. Market");
-        System.out.println("4. Deposit fiat");
-        System.out.println("0. Logout");
-        int option = enterNumber();
-        scanner.nextLine();
-        blankSpace();
-        if (option >= 0){
-            switch (option){
-                case 1:
-                    userWalletView();
-                    break;
-                case 2:
-                    cryptocurrenciesValue();
-                    break;
-                case 3:
-                    MarketView marketView = new MarketView();
-                    break;
-                case 4:
-                    depositFiatView();
-                    home();
-                    break;
-                case 0:
-                    ConsoleView consoleView = new ConsoleView();
-                    break;
-                default:
-                    home();
-                    break;
+        boolean loop = true;
+        do {
+            blankSpace();
+            color.blueColor("Welcome " + userController.userNameLogin());
+            color.greenColor("Select a option");
+            System.out.println("1. My wallet");
+            System.out.println("2. Cryptocurrency price");
+            System.out.println("3. Market");
+            System.out.println("4. Deposit fiat");
+            System.out.println("0. Logout");
+            int option = enterNumber();
+            scanner.nextLine();
+            blankSpace();
+            if (option >= 0) {
+                switch (option) {
+                    case 1:
+                        userWalletView();
+                        break;
+                    case 2:
+                        cryptocurrenciesValue();
+                        break;
+                    case 3:
+                        marketView.marketHome();
+                        break;
+                    case 4:
+                        depositFiatView();
+                        break;
+                    case 0:
+                        System.out.println("exit logout");
+                        loop = false;
+                        break;
+                    default:
+                        color.redColor("Error: Enter a number of the list");
+                        break;
+                }
             }
-        }
-        else {
-            home();
-        }
-
+        } while (loop);
     }
 
-    private void cryptocurrenciesValue (){
+    private void cryptocurrenciesValue() {
         System.out.println(exchangeWalletController.screenCryptosPrice());
-        String flag = scanner.nextLine();
-        if(flag != null){
-            home();
-        }
+        color.greenColor("\nPress any key to return");
+        scanner.nextLine();
         blankSpace();
     }
 
@@ -72,11 +76,8 @@ public class HomeView {
         System.out.println("Ethereum: 5000");
         System.out.println("UnisWap: 5000");
         System.out.println("Fiat: $5000");
-        System.out.println("Press any key to return");
-        String flag = scanner.nextLine();
-        if(flag != null){
-            home();
-        }
+        color.greenColor("\nPress any key to return");
+        scanner.nextLine();
         blankSpace();
     }
 
@@ -88,6 +89,7 @@ public class HomeView {
     }
 
     private int enterNumber(){
+        System.out.print(">> ");
         if(scanner.hasNextInt())
             return scanner.nextInt();
         else {
