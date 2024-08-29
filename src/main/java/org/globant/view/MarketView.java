@@ -1,10 +1,13 @@
 package org.globant.view;
 
+import org.globant.controller.history.HistoryController;
 import org.globant.controller.user.UserController;
 import org.globant.controller.wallet.ExchangeWalletController;
 import org.globant.controller.wallet.UserWalletController;
 import org.globant.enums.Cryptos;
+import org.globant.enums.Transaction;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class MarketView {
@@ -13,10 +16,12 @@ public class MarketView {
     ExchangeWalletController exchangeWalletController;
     UserController userController;
     UserWalletController userWalletController;
+    HistoryController historyController;
     Scanner scanner;
 
-    public MarketView(ExchangeWalletController exchangeWalletController, UserController userController, UserWalletController userWalletController, Scanner scanner, ColorView color) {
+    public MarketView(ExchangeWalletController exchangeWalletController,HistoryController historyController, UserController userController, UserWalletController userWalletController, Scanner scanner, ColorView color) {
         this.exchangeWalletController = exchangeWalletController;
+        this.historyController = historyController;
         this.userController = userController;
         this.userWalletController = userWalletController;
         this.scanner = scanner;
@@ -100,7 +105,6 @@ public class MarketView {
         color.blueColor("SALES ORDER");
     }
 
-
     private void cryptoBuyView(Cryptos cryptos, String cryptoType){
         color.yellowColor("Enter the amount to buy");
         String amount = amountEnter();
@@ -108,6 +112,7 @@ public class MarketView {
         if (exchangeWalletController.changeStringDouble(amount)){
             if(exchangeWalletController.withdrawExchange(cryptos, amount)){
                 if(userWalletController.depositUserWallet(cryptos, amount)){
+                    historyController.addTransactionToUser(cryptos, new BigDecimal(amount), Transaction.DIRECT_BUY);
                     color.greenColor(cryptoType + " sell successfully");
                     System.out.println(exchangeWalletController.screenExchangeWallet());
                 }

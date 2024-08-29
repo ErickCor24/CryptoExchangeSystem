@@ -1,17 +1,10 @@
 package org.globant.controller.wallet;
 
 import org.globant.enums.Cryptos;
-import org.globant.model.user.User;
 import org.globant.repository.ExchangeWalletRepository;
 import org.globant.repository.LoginUserRepository;
 import org.globant.repository.UserMemoryRepository;
-import org.globant.services.userServices.LoginUserPort;
-import org.globant.services.userServices.RegisterUserAccountPort;
-import org.globant.services.userServices.UserServiceImpl;
-import org.globant.services.userWalletService.UserWalletPortServiceImpl;
-
-import java.math.BigDecimal;
-import java.util.Map;
+import org.globant.services.walletservice.userwallet.UserWalletPortServiceImpl;
 
 public class UserWalletController {
 

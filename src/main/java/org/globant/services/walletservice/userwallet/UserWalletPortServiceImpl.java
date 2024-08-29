@@ -1,4 +1,4 @@
-package org.globant.services.userWalletService;
+package org.globant.services.walletservice.userwallet;
 
 import org.globant.enums.Cryptos;
 import org.globant.repository.ExchangeWalletRepository;
@@ -12,8 +12,6 @@ public class UserWalletPortServiceImpl implements DepositUserWalletPort {
     LoginUserRepository loginUserRepository;
     ExchangeWalletRepository exchangeWalletRepository;
     UserMemoryRepository userMemoryRepository;
-
-
 
     public UserWalletPortServiceImpl(LoginUserRepository loginUserRepository, UserMemoryRepository userMemoryRepository, ExchangeWalletRepository exchangeWalletRepository) {
         this.loginUserRepository = loginUserRepository;

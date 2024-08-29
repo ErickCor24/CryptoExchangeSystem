@@ -1,5 +1,6 @@
 package org.globant.view;
 
+import org.globant.controller.history.HistoryController;
 import org.globant.controller.user.UserController;
 import org.globant.controller.wallet.ExchangeWalletController;
 import org.globant.controller.wallet.UserWalletController;
@@ -9,14 +10,16 @@ import java.util.Scanner;
 public class HomeView {
 
     ExchangeWalletController exchangeWalletController;
+    HistoryController historyController;
     UserController userController;
     UserWalletController userWalletController;
     MarketView marketView;
     ColorView color;
     Scanner scanner;
 
-    public HomeView(MarketView marketView, ExchangeWalletController exchangeWalletController,UserController userController, UserWalletController userWalletController, Scanner scanner, ColorView color) {
+    public HomeView(MarketView marketView, HistoryController historyController, ExchangeWalletController exchangeWalletController,UserController userController, UserWalletController userWalletController, Scanner scanner, ColorView color) {
         this.marketView = marketView;
+        this.historyController = historyController;
         this.exchangeWalletController = exchangeWalletController;
         this.userController = userController;
         this.userWalletController = userWalletController;
@@ -34,6 +37,7 @@ public class HomeView {
             System.out.println("2. Cryptocurrency price");
             System.out.println("3. Market");
             System.out.println("4. Deposit fiat");
+            System.out.println("5. View transactions history");
             System.out.println("0. Logout");
             int option = enterNumber();
             scanner.nextLine();
@@ -51,6 +55,9 @@ public class HomeView {
                         break;
                     case 4:
                         depositFiatView();
+                        break;
+                    case 5:
+                        historyController.screenHistory();
                         break;
                     case 0:
                         System.out.println("exit logout");
@@ -72,10 +79,7 @@ public class HomeView {
     }
 
     private void userWalletView(){
-        System.out.println("Bitcoin: 5000");
-        System.out.println("Ethereum: 5000");
-        System.out.println("UnisWap: 5000");
-        System.out.println("Fiat: $5000");
+        userController.userWalletScreen();
         color.greenColor("\nPress any key to return");
         scanner.nextLine();
         blankSpace();

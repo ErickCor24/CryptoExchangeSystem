@@ -1,4 +1,4 @@
-package org.globant.services.walletService;
+package org.globant.services.walletservice.exchangewallet;
 
 import org.globant.enums.Cryptos;
 import org.globant.repository.ExchangeWalletRepository;

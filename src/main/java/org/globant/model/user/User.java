@@ -1,8 +1,11 @@
 package org.globant.model.user;
 
+import org.globant.model.history.TransactionHistory;
 import org.globant.model.wallet.UserWallet;
 import org.globant.model.wallet.Wallet;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class User {
@@ -11,6 +14,8 @@ public class User {
     private String password;
     private final String userName;
     private UserWallet userWallet;
+    private List<TransactionHistory> transactionHistories;
+
 
     public User(String name, String email, String password) {
         this.name = name;
@@ -18,6 +23,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.userWallet = new UserWallet();
+        this.transactionHistories = new ArrayList<>();
     }
 
     public String userNameGenerator(){
@@ -28,8 +34,16 @@ public class User {
 
     @Override
     public String toString() {
-        return "Name:'" + name + ", E-mail:" + email +", Password:'" + password +
+        return "Name:" + name + ", E-mail:" + email +", Password:'" + password +
                 ", User Name: '" + userName + userWallet.toString();
+    }
+
+    public List<TransactionHistory> getAllTransactions() {
+        return transactionHistories;
+    }
+
+    public void addTransactionHistory(TransactionHistory transactionHistory) {
+        this.transactionHistories.add(transactionHistory);
     }
 
     public String getName() {

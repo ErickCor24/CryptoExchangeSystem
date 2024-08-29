@@ -3,7 +3,7 @@ package org.globant.controller.wallet;
 import org.globant.enums.Cryptos;
 import org.globant.model.wallet.ExchangeWallet;
 import org.globant.repository.ExchangeWalletRepository;
-import org.globant.services.walletService.WalletPortServiceImpl;
+import org.globant.services.walletservice.exchangewallet.WalletPortServiceImpl;
 
 public class ExchangeWalletController {
     ExchangeWallet exchangeWallet = ExchangeWalletRepository.getInstance().getExchangeWallet();
