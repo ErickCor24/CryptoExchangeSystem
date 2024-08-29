@@ -1,103 +1,113 @@
 package org.globant.view;
 
 import org.globant.controller.user.UserController;
-import org.globant.repository.ScannerRepository;
+
 import java.util.Scanner;
 
 public class ConsoleView {
-    Scanner scanner = ScannerRepository.getInstance().getScanner();
-    UserController userController = new UserController();
 
-    public ConsoleView() {
-        init();
+    ColorView color;
+    Scanner scanner;
+    UserController userController;
+    HomeView homeView;
+
+    public ConsoleView(HomeView homeView, UserController userController, Scanner scanner, ColorView color) {
+        this.homeView = homeView;
+        this.userController = userController;
+        this.scanner = scanner;
+        this.color = color;
     }
 
-    public void init(){
-        System.out.println("Crypto Exchange System");
-        System.out.println("Select a option");
-        System.out.println("1. Login");
-        System.out.println("2. Register");
-        System.out.println("Any other number key to shut down the system");
-        int flag = enterNumber();
-        scanner.nextLine();
-        blankSpace();
-        if(flag != -1){
-            switch (flag){
-                case 1:
-                    userController.usersScreen();
-                    boolean loginFlag = loginView();
-                    if(loginFlag){
-                        blankSpace();
-                        HomeView homeView = new HomeView();
-                    }
-                    else {
-                        init();
-                    }
-                    break;
-                case 2:
-                    registerView();
-                    init();
-                    break;
-                default:
-                    System.out.println("Good Bye!");
-                    System.exit(0);
-                    break;
+    public void execute() {
+        do {
+            blankSpace();
+            color.blueColor("CRYPTO EXCHANGE SYSTEM\n");
+            System.out.println("Select a option");
+            System.out.println("1. Login");
+            System.out.println("2. Register");
+            System.out.println("0. To shut down the system");
+            blankSpace();
+            int flag = enterNumber();
+            scanner.nextLine();
+            blankSpace();
+            if (flag != -1) {
+                switch (flag) {
+                    case 1:
+                        userController.usersScreen();
+                        boolean loginFlag = loginView();
+                        if (loginFlag) {
+                            homeView.home();
+                        }
+                        break;
+                    case 2:
+                        registerView();
+                        break;
+                    case 0:
+                        color.yellowColor("Good Bye!");
+                        scanner.close();
+                        System.exit(0);
+                        break;
+                    default:
+                        color.redColor("Error: Enter a number of the list");
+                        break;
+                }
             }
-        } else {
-            init();
-        }
-
+        } while (true);
     }
-    private boolean loginView(){
+
+    private boolean loginView() {
         String email;
         String password;
-        System.out.println("WELCOME AGAIN");
+        color.blueColor("USER LOGIN");
         email = emailUserInput();
         password = passwordUserInput();
         boolean flag = userController.loginUserSystem(email, password);
-        if (flag){
+        if (flag) {
             System.out.println(userController.userLoginScreen());
         }
         blankSpace();
         return flag;
     }
-    private void registerView(){
-        System.out.println("WELCOME, PLEASE ENTER THE NEXT DATA");
+
+    private void registerView() {
+        color.blueColor("USER REGISTER");
         String name = nameUserInput();
         String email = emailUserInput();
         String password = passwordUserInput();
-        userController.registerUserRepository(name, email, password);
         blankSpace();
+        userController.registerUserRepository(name, email, password);
     }
 
-    private String nameUserInput (){
+    private String nameUserInput() {
         System.out.println("Insert your name:");
-        System.out.print("Name: ");
+        System.out.print(">> ");
         return scanner.nextLine();
     }
 
-    private String emailUserInput (){
+    private String emailUserInput() {
         System.out.println("Insert your e-amil:");
-        System.out.print("E-mail: ");
+        System.out.print(">> ");
         return scanner.nextLine();
     }
 
-    private String passwordUserInput (){
+    private String passwordUserInput() {
         System.out.println("Insert your password:");
-        System.out.print("Password: ");
+        System.out.print(">> ");
         return scanner.nextLine();
     }
 
-    private int enterNumber(){
-        if(scanner.hasNextInt())
+    private int enterNumber() {
+        System.out.print(">> ");
+        if (scanner.hasNextInt())
             return scanner.nextInt();
         else {
-            System.out.println("Enter a valid number");
+            blankSpace();
+            color.redColor("Error: Enter a valid number");
             return -1;
         }
     }
 
-    private void blankSpace (){
+    private void blankSpace() {
         System.out.println();
     }
 }
