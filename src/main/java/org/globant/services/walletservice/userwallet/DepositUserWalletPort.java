@@ -1,4 +1,4 @@
-package org.globant.services.userWalletService;
+package org.globant.services.walletservice.userwallet;
 
 import org.globant.enums.Cryptos;
 

@@ -1,4 +1,4 @@
-package org.globant.services.userServices;
+package org.globant.services.userservices;
 
 import org.globant.model.user.User;
 

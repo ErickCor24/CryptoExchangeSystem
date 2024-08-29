@@ -19,6 +19,10 @@ public class LoginUserRepository {
         return instance;
     }
 
+    public User getUserLogin() {
+        return userLogin;
+    }
+
     public String getUserNameLogin (){
         return this.userLogin.getUserName();
     }
