@@ -14,7 +14,7 @@ public class User {
     private String password;
     private final String userName;
     private UserWallet userWallet;
-    private List<TransactionHistory> transactionHistories;
+    private final List<TransactionHistory> transactionHistories;
 
 
     public User(String name, String email, String password) {

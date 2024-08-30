@@ -28,7 +28,7 @@ public class UserController {
             user = registerUserAccount.userRegister(id,name, email, password);
             if(user != null){
                 System.out.println("User register Successful :)\nYour username is: " + user.getUserName());
-                System.out.println(user.toString());
+//                System.out.println(user.toString());
             } else {
                 System.out.println("The email is already register");
             }

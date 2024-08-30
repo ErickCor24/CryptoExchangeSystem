@@ -25,10 +25,10 @@ public class TransactionHistory {
 
     @Override
     public String toString() {
-        return ">> Date: " + transactionDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))+
+        return ">> Transaction type:" + typeTransaction +
                 ", crypto:" + cryptoName +
                 ", crypto amount: " + cryptoAmount +
-                ", fiat: " + fiatAmount +
-                ", transaction type:" + typeTransaction;
+                ", wallet fiat: " + fiatAmount +
+                ", Date: " + transactionDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")) ;
     }
 }
