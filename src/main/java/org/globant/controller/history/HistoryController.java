@@ -25,9 +25,9 @@ public class HistoryController {
     public void addTransactionToUser(Cryptos crypto, BigDecimal cryptoAmount, Transaction transaction){
         String typeTransaction = "";
         switch (transaction) {
-            case DIRECT_BUY -> typeTransaction = "Buy direct to exchange";
-            case BUY_ORDER -> typeTransaction = "Buy in market P2P";
-            case SELL_ORDER -> typeTransaction = "Shell in market P2P";
+            case DIRECT_BUY -> typeTransaction = " Buy direct to exchange";
+            case BUY_ORDER -> typeTransaction = " Buy in market P2P";
+            case SELL_ORDER -> typeTransaction = " Shell in market P2P";
         }
         historyTransaction.addHistory(crypto, cryptoAmount, typeTransaction);
     }

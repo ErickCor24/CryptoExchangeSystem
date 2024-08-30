@@ -33,7 +33,7 @@ public class ConsoleView {
             if (flag != -1) {
                 switch (flag) {
                     case 1:
-                        userController.usersScreen();
+//                        userController.usersScreen();
                         boolean loginFlag = loginView();
                         if (loginFlag) {
                             homeView.home();
@@ -63,7 +63,7 @@ public class ConsoleView {
         password = passwordUserInput();
         boolean flag = userController.loginUserSystem(email, password);
         if (flag) {
-            System.out.println(userController.userLoginScreen());
+            System.out.println("User Logged");
         }
         blankSpace();
         return flag;

@@ -2,9 +2,12 @@ package org.globant.model.order;
 
 import java.math.BigDecimal;
 
+import org.globant.enums.Cryptos;
+import org.globant.model.user.User;
+
 public class BuyOrder extends Order {
 
-    public BuyOrder(String cryptoName, BigDecimal cryptoMount, BigDecimal maximumPrice, int userId) {
-        super(cryptoName, cryptoMount, maximumPrice, userId);
+    public BuyOrder(Cryptos crypto, String cryptoMount, String maximumPrice, User user, int userId) {
+        super(crypto, cryptoMount, maximumPrice, user, userId);
     }
 }

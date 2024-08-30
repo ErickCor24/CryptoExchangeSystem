@@ -1,7 +1,6 @@
 package org.globant.view;
 
 import org.globant.controller.history.HistoryController;
-import org.globant.controller.user.UserController;
 import org.globant.controller.wallet.ExchangeWalletController;
 import org.globant.controller.wallet.UserWalletController;
 import org.globant.enums.Cryptos;
@@ -12,17 +11,18 @@ import java.util.Scanner;
 
 public class MarketView {
 
-    ColorView color;
-    ExchangeWalletController exchangeWalletController;
-    UserController userController;
-    UserWalletController userWalletController;
-    HistoryController historyController;
-    Scanner scanner;
+    private final ColorView color;
+    private final ExchangeWalletController exchangeWalletController;
+//    private final UserController userController;
+    private final UserWalletController userWalletController;
+    private final HistoryController historyController;
+    private final Scanner scanner;
+    private final OrderView orderView;
 
-    public MarketView(ExchangeWalletController exchangeWalletController,HistoryController historyController, UserController userController, UserWalletController userWalletController, Scanner scanner, ColorView color) {
+    public MarketView(OrderView orderView, ExchangeWalletController exchangeWalletController,HistoryController historyController, UserWalletController userWalletController, Scanner scanner, ColorView color) {
+        this.orderView = orderView;
         this.exchangeWalletController = exchangeWalletController;
         this.historyController = historyController;
-        this.userController = userController;
         this.userWalletController = userWalletController;
         this.scanner = scanner;
         this.color = color;
@@ -47,14 +47,15 @@ public class MarketView {
                         loop = false;
                         break;
                     case 2:
-                        buyOrderView();
+                        orderView.buyOrderView();
                         loop = false;
                         break;
                     case 3:
-                        salesOrderView();
+                        orderView.salesOrderView();
                         loop = false;
                         break;
                     case 0:
+                        orderView.screenOrders();
                         loop = false;
                         break;
                     default:
@@ -95,14 +96,6 @@ public class MarketView {
             }
             blankSpace();
         } while (loop);
-    }
-
-    private void buyOrderView (){
-        color.blueColor("PURCHASE ORDER");
-    }
-
-    private void salesOrderView(){
-        color.blueColor("SALES ORDER");
     }
 
     private void cryptoBuyView(Cryptos cryptos, String cryptoType){
