@@ -21,23 +21,35 @@ public class OrderView {
     }
 
     public void buyOrderView() {
-        color.blueColor("PURCHASE ORDER");
+        color.blueColor("BUY ORDER");
         Cryptos crypto = cryptoSelect();
+        priceCryptoView(crypto);
         System.out.println("Enter the amount of crypto to buy");
         String cryptoAmount = amountEnter();
         System.out.println("Enter the maximum price to pay");
         String maximumAmount = amountEnter();
+        blankSpace();
         color.yellowColor(orderController.makeBuyOrder(crypto,cryptoAmount,maximumAmount));
     }
 
     public void salesOrderView() {
-        color.blueColor("SALES ORDER");
+        color.blueColor("SELL ORDER");
         Cryptos crypto = cryptoSelect();
+        priceCryptoView(crypto);
         System.out.println("Enter the amount of crypto to sell");
         String cryptoAmount = amountEnter();
         System.out.println("Enter the price to sell");
         String maximumAmount = amountEnter();
+        blankSpace();
         color.yellowColor(orderController.makeSalesOrder(crypto,cryptoAmount,maximumAmount));
+    }
+
+    private void priceCryptoView (Cryptos cryptos){
+        switch (cryptos){
+            case BITCOIN -> color.yellowColor(historyController.btcPrice());
+            case ETHEREUM -> color.yellowColor(historyController.ethPrice());
+            case UNISWAP -> color.yellowColor(historyController.uniPrice());
+        }
     }
 
     public void screenOrders(){
@@ -45,7 +57,6 @@ public class OrderView {
     }
 
     private Cryptos cryptoSelect(){
-        boolean flag = true;
         do {
             System.out.println("Select the crypto to buy: \n1. Bitcoin \n2. Ethereum \n3. UnisWap ");
             int option = enterNumber();
@@ -73,7 +84,9 @@ public class OrderView {
         if(scanner.hasNextInt())
             return scanner.nextInt();
         else {
-            System.out.println("Enter a valid number");
+            blankSpace();
+            color.redColor("Enter a valid number");
+            blankSpace();
             return -1;
         }
     }

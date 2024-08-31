@@ -1,12 +1,9 @@
 package org.globant.model.history;
 
-import org.globant.enums.Cryptos;
-import org.globant.enums.Transaction;
-
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class TransactionHistory {
     private final LocalDateTime transactionDate;
@@ -28,7 +25,7 @@ public class TransactionHistory {
         return ">> Transaction type:" + typeTransaction +
                 ", crypto:" + cryptoName +
                 ", crypto amount: " + cryptoAmount +
-                ", wallet fiat: " + fiatAmount +
+                ", price negotiated: $" + fiatAmount.setScale(2, RoundingMode.HALF_UP) +
                 ", Date: " + transactionDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")) ;
     }
 }

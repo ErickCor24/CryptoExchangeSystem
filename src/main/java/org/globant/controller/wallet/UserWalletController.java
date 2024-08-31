@@ -20,13 +20,17 @@ public class UserWalletController {
             return false;
     }
 
-    public void depositFiat(String amount){
+    public String depositFiat(String amount){
         try {
-            Double.parseDouble(amount);
-            userWalletService.depositFiat(amount);
+            if (Double.parseDouble(amount)>0) {
+                userWalletService.depositFiat(amount);
+                return "Fiat deposit in your wallet";
+            } else
+                return "Enter an amount greater than 0 ";
         } catch (NumberFormatException e){
-            System.out.println("Enter a valid number");
+            return "Enter a valid number";
         }
     }
+
 
 }

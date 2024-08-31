@@ -36,7 +36,7 @@ public class UserWalletPortServiceImpl implements DepositUserWalletPort {
                 if(allowedUserFunds(cryptos, amount)){
                     cryptoPrice = new BigDecimal(exchangeWalletRepository.getBitcoinPrice());
                     user.getUserWallet().removeFiat(cryptoPrice.multiply(cryptoAmount));
-                    user.getUserWallet().addBitCoin(cryptoAmount);
+                    user.getUserWallet().getBitcoinCrypto().addAmountCrypto(cryptoAmount);
                     flag = true;
                 }
             }
@@ -44,7 +44,7 @@ public class UserWalletPortServiceImpl implements DepositUserWalletPort {
                 if (allowedUserFunds(cryptos, amount)){
                     cryptoPrice = new BigDecimal(exchangeWalletRepository.getEthereumPrice());
                     user.getUserWallet().removeFiat(cryptoPrice.multiply(cryptoAmount));
-                    user.getUserWallet().addEthereum(cryptoAmount);
+                    user.getUserWallet().getEthereumCrypto().addAmountCrypto(cryptoAmount);
                     flag = true;
                 }
             }
@@ -52,7 +52,7 @@ public class UserWalletPortServiceImpl implements DepositUserWalletPort {
                 if (allowedUserFunds(cryptos, amount)){
                     cryptoPrice = new BigDecimal(exchangeWalletRepository.getUnisWapPrice());
                     user.getUserWallet().removeFiat(cryptoPrice.multiply(cryptoAmount));
-                    user.getUserWallet().addUnisWap(cryptoAmount);
+                    user.getUserWallet().getUnisWapCrypto().addAmountCrypto(cryptoAmount);
                     flag = true;
                 }
             }

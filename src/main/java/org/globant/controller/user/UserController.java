@@ -22,42 +22,44 @@ public class UserController {
     private final RegisterUserAccountPort registerUserAccount = new UserServiceImpl(userMemoryRepository, loginUserRepository,exchangeWalletRepository);
     private final LoginUserPort loginUser = new UserServiceImpl(userMemoryRepository, loginUserRepository,exchangeWalletRepository);
 
-    public void registerUserRepository(String name, String email, String password) {
+    public String registerUserRepository(String name, String email, String password) {
         try {
-            int id = lastUserId();
-            user = registerUserAccount.userRegister(id,name, email, password);
-            if(user != null){
-                System.out.println("User register Successful :)\nYour username is: " + user.getUserName());
-//                System.out.println(user.toString());
+            if(!(name.isEmpty() || email.isEmpty() || password.isEmpty())) {
+                int id = lastUserId();
+                user = registerUserAccount.userRegister(id, name, email, password);
+                if (user != null) {
+                    return "User register Successful :)\nYour username is: " + user.getUserName();
+                } else {
+                    return "The email is already register";
+                }
             } else {
-                System.out.println("The email is already register");
+                return "You cannot enter empty fields";
             }
         } catch (UserRegisterException e){
-            System.out.println("A problem occurred while registering your user ");
+            return  "A problem occurred while registering your user ";
         }
     }
 
     public boolean loginUserSystem (String email, String password){
-        var userLogin= loginUser.searchUserAccount(email, password);
-        if(userLogin != null){
-            int userId = loginUser.searchIdByUser(userLogin);
-            if (userId >= 0){
-                loginUser.enterUserSystem(userId, userLogin);
-                return true;
-            }
-            else {
-                System.out.println("User id account not found :(");
+        if(!(email.isEmpty() || password.isEmpty())) {
+            var userLogin = loginUser.searchUserAccount(email, password);
+            if (userLogin != null) {
+                int userId = loginUser.searchIdByUser(userLogin);
+                if (userId >= 0) {
+                    loginUser.enterUserSystem(userId, userLogin);
+                    return true;
+                } else {
+                    System.out.println("\nUser id account not found :(");
+                    return false;
+                }
+            } else {
+                System.out.println("\nUser account not found :(");
                 return false;
             }
-        }
-        else {
-            System.out.println("User account not found :(");
+        } else {
+            System.out.println("\nYou cannot enter empty fields");
             return false;
         }
-    }
-
-    public String userLoginScreen(){
-        return loginUserRepository.toString();
     }
 
     public String userNameLogin (){
@@ -65,13 +67,12 @@ public class UserController {
     }
 
     public void userWalletScreen(){
-        System.out.println(loginUserRepository.getUserLogin().getUserWallet());
-    }
-
-    public void usersScreen (){
-        for(Map.Entry <Integer, User > entry : users.entrySet()){
-            System.out.println(entry.getKey() + " " + entry.getValue());
+        if(!loginUserRepository.getUserLogin().getUserWallet().toString().isEmpty()){
+            System.out.println(loginUserRepository.getUserLogin().getUserWallet());
+        } else {
+            System.out.println("Your wallet not contains founds");
         }
+
     }
 
     private int lastUserId (){
