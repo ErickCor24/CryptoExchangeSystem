@@ -1,7 +1,5 @@
 package org.globant.model.order;
 
-import java.math.BigDecimal;
-
 import org.globant.enums.Cryptos;
 import org.globant.model.user.User;
 

@@ -4,6 +4,7 @@ import org.globant.enums.Cryptos;
 import org.globant.model.user.User;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public abstract class Order {
 
@@ -59,11 +60,11 @@ public abstract class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "Order" +
                 "crypto=" + crypto.toString() +
                 ", cryptoMount=" + cryptoMount +
-                ", maximumPrice=" + maximumPrice +
+                ", maximumPrice= $" + maximumPrice.setScale(2, RoundingMode.HALF_UP) +
                 ", user=" + user.getUserName() +
-                '}';
+                "\n";
     }
 }

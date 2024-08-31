@@ -60,7 +60,7 @@ public class HomeView {
                         historyController.screenHistory();
                         break;
                     case 0:
-                        System.out.println("exit logout");
+                        color.blueColor("Leaving the account");
                         loop = false;
                         break;
                     default:
@@ -75,21 +75,20 @@ public class HomeView {
         System.out.println(exchangeWalletController.screenCryptosPrice());
         color.greenColor("\nPress any key to return");
         scanner.nextLine();
-        blankSpace();
     }
 
     private void userWalletView(){
         userController.userWalletScreen();
         color.greenColor("\nPress any key to return");
         scanner.nextLine();
-        blankSpace();
     }
 
     private void depositFiatView(){
         System.out.println("Deposit to user account");
+        System.out.print(">> ");
         String value = scanner.nextLine();
-        userWalletController.depositFiat(value.trim());
         blankSpace();
+        color.yellowColor(userWalletController.depositFiat(value.trim()));
     }
 
     private int enterNumber(){
@@ -97,7 +96,8 @@ public class HomeView {
         if(scanner.hasNextInt())
             return scanner.nextInt();
         else {
-            System.out.println("Enter a valid number");
+            blankSpace();
+            color.redColor("Enter a valid number");
             return -1;
         }
     }

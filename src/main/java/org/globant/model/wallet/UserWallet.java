@@ -1,6 +1,7 @@
 package org.globant.model.wallet;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class UserWallet extends Wallet{
     BigDecimal fiat;
@@ -27,16 +28,16 @@ public class UserWallet extends Wallet{
     public String toString() {
         String value = "";
         if(fiat.compareTo(BigDecimal.ZERO) > 0){
-            value = value +"Cash: " + fiat;
+            value += "Cash: $" + fiat.setScale(2, RoundingMode.HALF_UP);
         }
-        if (bitCoin.compareTo(BigDecimal.ZERO) > 0){
-            value = value +" - Bitcoin: " + bitCoin;
+        if (bitcoinCrypto.getAmountCrypto().compareTo(BigDecimal.ZERO) > 0){
+            value += " - Bitcoin: "+ bitcoinCrypto.getAbbreviationCrypto()+ " " + bitcoinCrypto.getAmountCrypto();
         }
-        if (ethereum.compareTo(BigDecimal.ZERO) > 0){
-            value = value +" - Ethereum:  " + ethereum;
+        if (ethereumCrypto.getAmountCrypto().compareTo(BigDecimal.ZERO) > 0){
+            value += " - Ethereum: "+ ethereumCrypto.getAbbreviationCrypto()+ " "  + ethereumCrypto.getAmountCrypto();
         }
-        if (unisWap.compareTo(BigDecimal.ZERO) > 0){
-            value = value +" - UnisWap: " + unisWap;
+        if (unisWapCrypto.getAmountCrypto().compareTo(BigDecimal.ZERO) > 0){
+            value += " - UnisWap: " + unisWapCrypto.getAbbreviationCrypto()+ " "  + unisWapCrypto.getAmountCrypto();
         }
         return value;
     }

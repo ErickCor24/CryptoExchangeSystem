@@ -33,7 +33,6 @@ public class ConsoleView {
             if (flag != -1) {
                 switch (flag) {
                     case 1:
-//                        userController.usersScreen();
                         boolean loginFlag = loginView();
                         if (loginFlag) {
                             homeView.home();
@@ -75,7 +74,7 @@ public class ConsoleView {
         String email = emailUserInput();
         String password = passwordUserInput();
         blankSpace();
-        userController.registerUserRepository(name, email, password);
+        System.out.println(userController.registerUserRepository(name.trim(), email.trim(), password.trim()));
     }
 
     private String nameUserInput() {

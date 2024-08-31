@@ -25,8 +25,7 @@ public class ExchangeWalletController {
     public boolean changeStringDouble (String var){
         try {
             var = var.replace(",",".");
-            Double.parseDouble(var);
-            return true;
+            return Double.parseDouble(var) > 0;
         } catch (NumberFormatException e){
             return false;
         }

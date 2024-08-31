@@ -17,9 +17,9 @@ public class WalletPortServiceImpl implements WithdrawExchangeWalletPort {
     public boolean withdraw(Cryptos cryptos, String var) {
         BigDecimal amount = new BigDecimal(var);
         switch (cryptos){
-            case BITCOIN -> { return exchangeWalletRepository.getExchangeWallet().removeBitcoin(amount); }
-            case ETHEREUM -> { return exchangeWalletRepository.getExchangeWallet().removeEthereum(amount); }
-            case UNISWAP -> { return exchangeWalletRepository.getExchangeWallet().removeUnisWap(amount); }
+            case BITCOIN -> { return exchangeWalletRepository.getExchangeWallet().getBitcoinCrypto().removeAmountCrypto(amount); }
+            case ETHEREUM -> { return exchangeWalletRepository.getExchangeWallet().getEthereumCrypto().removeAmountCrypto(amount); }
+            case UNISWAP -> { return exchangeWalletRepository.getExchangeWallet().getUnisWapCrypto().removeAmountCrypto(amount); }
             default -> {
                 return false;
             }

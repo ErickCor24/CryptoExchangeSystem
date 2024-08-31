@@ -1,17 +1,18 @@
 package org.globant.repository;
 
+import org.globant.model.wallet.Crypto;
 import org.globant.model.wallet.ExchangeWallet;
 
 public class ExchangeWalletRepository {
     private static ExchangeWalletRepository instance;
     private final ExchangeWallet exchangeWallet;
 
-    private String bitcoinPrice = "62782.76";
-    private String ethereumPrice = "2679.51";
-    private  String unisWapPrice = "6.27";
+    private final Crypto bitcoin = new Crypto("62782.76","1800","Bitcoin","BTC",1);
+    private final Crypto ethereum = new Crypto("2679.51","8500","Ethereum","ETH",2);
+    private final Crypto unisWap = new Crypto("6.27","7000","UnisWap","UNI",3);
 
     private ExchangeWalletRepository() {
-        this.exchangeWallet = new ExchangeWallet("1800","8500", "7000", bitcoinPrice, ethereumPrice, unisWapPrice);
+        this.exchangeWallet = new ExchangeWallet(bitcoin,ethereum,unisWap);
     }
 
     public static ExchangeWalletRepository getInstance(){
@@ -26,27 +27,15 @@ public class ExchangeWalletRepository {
     }
 
     public String getBitcoinPrice() {
-        return bitcoinPrice;
-    }
-
-    public void setBitcoinPrice(String bitcoinPrice) {
-        this.bitcoinPrice = bitcoinPrice;
+        return bitcoin.getPriceCrypto().toString();
     }
 
     public String getEthereumPrice() {
-        return ethereumPrice;
-    }
-
-    public void setEthereumPrice(String ethereumPrice) {
-        this.ethereumPrice = ethereumPrice;
+        return ethereum.getPriceCrypto().toString();
     }
 
     public String getUnisWapPrice() {
-        return unisWapPrice;
-    }
-
-    public void setUnisWapPrice(String unisWapPrice) {
-        this.unisWapPrice = unisWapPrice;
+        return unisWap.getPriceCrypto().toString();
     }
 
 }

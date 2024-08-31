@@ -41,4 +41,16 @@ public class HistoryController {
         }else
             System.out.println("There are no transactions in your account");
     }
+
+    public String btcPrice(){
+        return "Bitcoin price: $"+exchangeWalletRepository.getBitcoinPrice();
+    }
+
+    public String ethPrice(){
+        return "Ethereum price: $"+exchangeWalletRepository.getEthereumPrice();
+    }
+
+    public String uniPrice(){
+        return "UnisWap price: $"+exchangeWalletRepository.getUnisWapPrice();
+    }
 }

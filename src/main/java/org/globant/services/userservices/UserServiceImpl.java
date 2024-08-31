@@ -71,24 +71,20 @@ public class UserServiceImpl implements RegisterUserAccountPort, LoginUserPort, 
     }
 
     @Override
-    public void addHistory(Cryptos cryptos, BigDecimal cryptoAmount, String transaction) {
-        BigDecimal cryptoPrice = null;
+    public void addHistory(Cryptos cryptos, BigDecimal cryptoPriceNegotiated, String transaction) {
         String cryptoName = "";
         switch (cryptos) {
             case BITCOIN -> {
-                cryptoPrice = new BigDecimal(exchangeWalletRepository.getBitcoinPrice());
                 cryptoName = "Bitcoin";
             }
             case ETHEREUM -> {
-                cryptoPrice = new BigDecimal(exchangeWalletRepository.getEthereumPrice());
                 cryptoName = "Ethereum";
             }
             case UNISWAP -> {
-                cryptoPrice = new BigDecimal(exchangeWalletRepository.getUnisWapPrice());
                 cryptoName = "UnisWap";
             }
         }
-        TransactionHistory transactionHistory = new TransactionHistory(cryptoName,cryptoAmount,cryptoPrice.multiply(cryptoAmount),transaction);
+        TransactionHistory transactionHistory = new TransactionHistory(cryptoName,cryptoPriceNegotiated,cryptoPriceNegotiated,transaction);
         userMemoryRepository.getUsers().get(loginUserRepository.getUserId()).addTransactionHistory(transactionHistory);
     }
 }

@@ -34,42 +34,50 @@ public class OrderController {
         maximumPrice = maximumPrice.replace(",", ".");
         BigDecimal price = new BigDecimal(maximumPrice);
         BigDecimal amount = new BigDecimal(cryptoAmount);
-        if (loginUserRepository.getUserLogin().getUserWallet().getFiat().compareTo(price) >= 0) {
-            var buy = buyOrder.addBuyOrder(cryptos, cryptoAmount, maximumPrice);
-            if (buyOrder.searchSaleOrder(buy)) {
-                historyController.addTransactionToUser(cryptos,amount, Transaction.BUY_ORDER);
-                return "The system found a order sale for you order";
+        if(price.compareTo(BigDecimal.ZERO) > 0 && amount.compareTo(BigDecimal.ZERO) > 0) {
+            if (loginUserRepository.getUserLogin().getUserWallet().getFiat().compareTo(price) >= 0) {
+                var buy = buyOrder.addBuyOrder(cryptos, cryptoAmount, maximumPrice);
+                if (buyOrder.searchSaleOrder(buy)) {
+                    historyController.addTransactionToUser(cryptos, price, Transaction.BUY_ORDER);
+                    return "The system found a order sale for you order";
+                } else {
+                    historyController.addTransactionToUser(cryptos, price, Transaction.BUY_ORDER);
+                    return "The system is waiting for a order sale for you order";
+                }
             } else {
-                historyController.addTransactionToUser(cryptos,amount, Transaction.BUY_ORDER);
-                return "The system is waiting for a order sale for you order";
+                return "Yor account not have the fiat assigned";
             }
-        } else {
-            return "Yor account not have the fiat assigned";
-        }
+        } else
+            return "Enter a amount greater than 0";
     }
 
     public String makeSalesOrder(Cryptos cryptos, String cryptoAmount, String maximumPrice) {
         cryptoAmount = cryptoAmount.replace(",", ".");
         maximumPrice = maximumPrice.replace(",", ".");
-        BigDecimal price = new BigDecimal(cryptoAmount);
+        BigDecimal price = new BigDecimal(maximumPrice);
         BigDecimal amount = new BigDecimal(cryptoAmount);
-        boolean flag = false;
-        switch (cryptos) {
-            case BITCOIN -> flag = loginUserRepository.getUserLogin().getUserWallet().getBitCoin().compareTo(price) >= 0;
-            case ETHEREUM ->flag = loginUserRepository.getUserLogin().getUserWallet().getEthereum().compareTo(price) >= 0;
-            case UNISWAP -> flag = loginUserRepository.getUserLogin().getUserWallet().getUnisWap().compareTo(price) >= 0;
-        }
+        boolean flag = isFlag(cryptos, amount);
         if (flag) {
             var sale = saleOrder.addSalesOrder(cryptos, cryptoAmount, maximumPrice);
             if (saleOrder.searchBuyOrder(sale)) {
-                historyController.addTransactionToUser(cryptos, amount, Transaction.BUY_ORDER);
+                historyController.addTransactionToUser(cryptos, price, Transaction.SELL_ORDER);
                 return "The system found a order buy for you order";
             } else {
-                historyController.addTransactionToUser(cryptos, amount, Transaction.BUY_ORDER);
+                historyController.addTransactionToUser(cryptos, price, Transaction.SELL_ORDER);
                 return "The system is waiting for a order buy for you order";
             }
         } else
             return "Yor account not have the crypto mount assigned";
+    }
+
+    private boolean isFlag(Cryptos cryptos, BigDecimal amount) {
+        boolean flag = false;
+        switch (cryptos) {
+            case BITCOIN -> flag = loginUserRepository.getUserLogin().getUserWallet().getBitcoinCrypto().getAmountCrypto().compareTo(amount) >= 0;
+            case ETHEREUM ->flag = loginUserRepository.getUserLogin().getUserWallet().getEthereumCrypto().getAmountCrypto().compareTo(amount) >= 0;
+            case UNISWAP -> flag = loginUserRepository.getUserLogin().getUserWallet().getUnisWapCrypto().getAmountCrypto().compareTo(amount) >= 0;
+        }
+        return flag;
     }
 
     public void ordersScreen (){

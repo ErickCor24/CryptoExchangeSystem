@@ -13,7 +13,6 @@ public class MarketView {
 
     private final ColorView color;
     private final ExchangeWalletController exchangeWalletController;
-//    private final UserController userController;
     private final UserWalletController userWalletController;
     private final HistoryController historyController;
     private final Scanner scanner;
@@ -28,40 +27,35 @@ public class MarketView {
         this.color = color;
     }
 
-    public void marketHome(){
+    public void marketHome() {
         boolean loop = true;
-        do{
+        do {
             blankSpace();
             color.greenColor("Select a option");
-            System.out.println("1. Buy cryptocurrencies on exchange");
-            System.out.println("2. Create a purchase order");
-            System.out.println("3. Create a sales order");
+            System.out.println("1. Buy cryptos on exchange");
+            System.out.println("2. Place Buy Order");
+            System.out.println("3. Place Sell Order");
             System.out.println("0. Return to Home");
             int option = enterNumber();
             scanner.nextLine();
             blankSpace();
-            if (option >= 0) {
-                switch (option) {
-                    case 1:
-                        buyDirectView();
-                        loop = false;
-                        break;
-                    case 2:
-                        orderView.buyOrderView();
-                        loop = false;
-                        break;
-                    case 3:
-                        orderView.salesOrderView();
-                        loop = false;
-                        break;
-                    case 0:
-                        orderView.screenOrders();
-                        loop = false;
-                        break;
-                    default:
-                        color.yellowColor("Select a option of the list");
-                        break;
-                }
+            switch (option) {
+                case 1:
+                    buyDirectView();
+                    break;
+                case 2:
+                    orderView.buyOrderView();
+                    break;
+                case 3:
+                    orderView.salesOrderView();
+                    break;
+                case 0:
+//                    orderView.screenOrders();
+                    loop = false;
+                    break;
+                default:
+                    color.yellowColor("Select a option of the list");
+                    break;
             }
         } while (loop);
     }
@@ -75,7 +69,6 @@ public class MarketView {
             int option = enterNumber();
             scanner.nextLine();
             blankSpace();
-            if (option >= 0) {
                 switch (option) {
                     case 1:
                         cryptoBuyView(Cryptos.BITCOIN, "Bitcoin");
@@ -90,16 +83,15 @@ public class MarketView {
                         loop = false;
                         break;
                     default:
-                        System.out.println("Insert a number of the list");
+                        color.redColor("Insert a number of the list");
+                        blankSpace();
                         break;
                 }
-            }
-            blankSpace();
         } while (loop);
     }
 
     private void cryptoBuyView(Cryptos cryptos, String cryptoType){
-        color.yellowColor("Enter the amount to buy");
+        color.yellowColor("Enter an amount greater than 0");
         String amount = amountEnter();
         blankSpace();
         if (exchangeWalletController.changeStringDouble(amount)){
@@ -117,7 +109,7 @@ public class MarketView {
                 color.redColor("No funds available on Exchange :(");
             }
         } else {
-            color.redColor("Error: Enter a correct number");
+            color.redColor("Error: Enter a correct amount");
         }
         blankSpace();
     }
@@ -132,7 +124,8 @@ public class MarketView {
         if(scanner.hasNextInt())
             return scanner.nextInt();
         else {
-            System.out.println("Enter a valid number");
+            blankSpace();
+            color.redColor("Enter a valid number");
             return -1;
         }
     }
