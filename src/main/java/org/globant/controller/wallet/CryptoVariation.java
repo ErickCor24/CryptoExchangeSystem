@@ -15,9 +15,9 @@ public class CryptoVariation implements Runnable {
             try {
                 Thread.sleep(20000);
                 int number = random.nextInt(0, 7);
-                double btcVariation = random.nextDouble();
-                double ethVariation = random.nextDouble();
-                double uniVariation = random.nextDouble();
+                double btcVariation = random.nextDouble(0,0.7);
+                double ethVariation = random.nextDouble(0,0.3);
+                double uniVariation = random.nextDouble(0, 0.08);
                 switch (number) {
                     case 0:
                         exchangeWalletRepository.getExchangeWallet().getBitcoinCrypto().addPriceCrypto(new BigDecimal(btcVariation));
