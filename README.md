@@ -11,7 +11,7 @@
 <p>Once inside the home page, you will be presented with 6 options</p>
 <img src="https://github.com/user-attachments/assets/8fa67b7a-cf0a-481b-9ce4-acab25a92daf">
 <list>
-  <ul>My wallet: Here you can see what is in your wallet, both in fiat and in number of cryptos.</ul>
+  <ul><br>My wallet:</br> Here you can see what is in your wallet, both in fiat and in number of cryptos.</ul>
   <ul>Cryptocurrency Price: Here you can see the current price of cryptocurrencies.</ul>
   <ul>Deposit fiat: Here the user can enter the amount of money to deposit (must be greater than 0).</ul>
   <ul>View Transactions history: Here you can see all the cryptocurrency movements that the user makes in the market.</ul>
