@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class UserWallet extends Wallet{
-    BigDecimal fiat;
+    private BigDecimal fiat;
 
     public UserWallet() {
         this.fiat = BigDecimal.ZERO;

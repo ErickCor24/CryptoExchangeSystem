@@ -48,20 +48,20 @@ public class BuyOrderServiceImpl implements BuyOrderPort, SaleOrderPort{
     public boolean searchBuyOrder(SalesOrder salesOrder) {
         List<BuyOrder> buys = buyOrderRepository.getBuyOrders();
         for (BuyOrder flag : buys) {
-            if(flag.getCryptoMount().equals(salesOrder.getCryptoMount()) && flag.getCrypto().equals(salesOrder.getCrypto())){
+            if(flag.getCryptoAmount().equals(salesOrder.getCryptoAmount()) && flag.getCrypto().equals(salesOrder.getCrypto())){
                 if(flag.getMaximumPrice().compareTo(salesOrder.getMaximumPrice()) >= 0){
                     switch (salesOrder.getCrypto()){
                         case BITCOIN -> {
-                            userMemoryRepository.getUsers().get(flag.getUserId()).getUserWallet().getBitcoinCrypto().addAmountCrypto(salesOrder.getCryptoMount());
-                            userMemoryRepository.getUsers().get(salesOrder.getUserId()).getUserWallet().getBitcoinCrypto().removeAmountCrypto(salesOrder.getCryptoMount());
+                            userMemoryRepository.getUsers().get(flag.getUserId()).getUserWallet().getBitcoinCrypto().addAmountCrypto(salesOrder.getCryptoAmount());
+                            userMemoryRepository.getUsers().get(salesOrder.getUserId()).getUserWallet().getBitcoinCrypto().removeAmountCrypto(salesOrder.getCryptoAmount());
                         }
                         case ETHEREUM -> {
-                            userMemoryRepository.getUsers().get(flag.getUserId()).getUserWallet().getEthereumCrypto().addAmountCrypto(salesOrder.getCryptoMount());
-                            userMemoryRepository.getUsers().get(salesOrder.getUserId()).getUserWallet().getEthereumCrypto().removeAmountCrypto(salesOrder.getCryptoMount());
+                            userMemoryRepository.getUsers().get(flag.getUserId()).getUserWallet().getEthereumCrypto().addAmountCrypto(salesOrder.getCryptoAmount());
+                            userMemoryRepository.getUsers().get(salesOrder.getUserId()).getUserWallet().getEthereumCrypto().removeAmountCrypto(salesOrder.getCryptoAmount());
                         }
                         case UNISWAP -> {
-                            userMemoryRepository.getUsers().get(flag.getUserId()).getUserWallet().getUnisWapCrypto().addAmountCrypto(salesOrder.getCryptoMount());
-                            userMemoryRepository.getUsers().get(salesOrder.getUserId()).getUserWallet().getUnisWapCrypto().removeAmountCrypto(salesOrder.getCryptoMount());
+                            userMemoryRepository.getUsers().get(flag.getUserId()).getUserWallet().getUnisWapCrypto().addAmountCrypto(salesOrder.getCryptoAmount());
+                            userMemoryRepository.getUsers().get(salesOrder.getUserId()).getUserWallet().getUnisWapCrypto().removeAmountCrypto(salesOrder.getCryptoAmount());
                         }
                     }
                     userMemoryRepository.getUsers().get(salesOrder.getUserId()).getUserWallet().addFiat(flag.getMaximumPrice());
@@ -80,20 +80,20 @@ public class BuyOrderServiceImpl implements BuyOrderPort, SaleOrderPort{
     public boolean searchSaleOrder(BuyOrder buyOrder) {
         List<SalesOrder> sales = salesOrderRepository.getSalesOrders();
         for (SalesOrder flag : sales) {
-            if (flag.getCryptoMount().equals(buyOrder.getCryptoMount()) && flag.getCrypto().equals(buyOrder.getCrypto())) {
+            if (flag.getCryptoAmount().equals(buyOrder.getCryptoAmount()) && flag.getCrypto().equals(buyOrder.getCrypto())) {
                 if(flag.getMaximumPrice().compareTo(buyOrder.getMaximumPrice()) <= 0){
                     switch (buyOrder.getCrypto()){
                         case BITCOIN -> {
-                            userMemoryRepository.getUsers().get(buyOrder.getUserId()).getUserWallet().getBitcoinCrypto().addAmountCrypto(flag.getCryptoMount());
-                            userMemoryRepository.getUsers().get(flag.getUserId()).getUserWallet().getBitcoinCrypto().removeAmountCrypto(flag.getCryptoMount());
+                            userMemoryRepository.getUsers().get(buyOrder.getUserId()).getUserWallet().getBitcoinCrypto().addAmountCrypto(flag.getCryptoAmount());
+                            userMemoryRepository.getUsers().get(flag.getUserId()).getUserWallet().getBitcoinCrypto().removeAmountCrypto(flag.getCryptoAmount());
                         }
                         case ETHEREUM -> {
-                            userMemoryRepository.getUsers().get(buyOrder.getUserId()).getUserWallet().getEthereumCrypto().addAmountCrypto(flag.getCryptoMount());
-                            userMemoryRepository.getUsers().get(flag.getUserId()).getUserWallet().getEthereumCrypto().removeAmountCrypto(flag.getCryptoMount());
+                            userMemoryRepository.getUsers().get(buyOrder.getUserId()).getUserWallet().getEthereumCrypto().addAmountCrypto(flag.getCryptoAmount());
+                            userMemoryRepository.getUsers().get(flag.getUserId()).getUserWallet().getEthereumCrypto().removeAmountCrypto(flag.getCryptoAmount());
                         }
                         case UNISWAP -> {
-                            userMemoryRepository.getUsers().get(buyOrder.getUserId()).getUserWallet().getUnisWapCrypto().addAmountCrypto(flag.getCryptoMount());
-                            userMemoryRepository.getUsers().get(flag.getUserId()).getUserWallet().getUnisWapCrypto().removeAmountCrypto(flag.getCryptoMount());
+                            userMemoryRepository.getUsers().get(buyOrder.getUserId()).getUserWallet().getUnisWapCrypto().addAmountCrypto(flag.getCryptoAmount());
+                            userMemoryRepository.getUsers().get(flag.getUserId()).getUserWallet().getUnisWapCrypto().removeAmountCrypto(flag.getCryptoAmount());
                         }
                     }
 
