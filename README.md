@@ -29,4 +29,4 @@
 <p>The price of cryptocurrencies fluctuate from time to time, more specifically, every 20 seconds.</p>
 
 <h3>UML model</h3>
-<img src="https://github.com/user-attachments/assets/ee0f7f90-ae0d-4357-ac80-e783a7c32e03"> 
+<img src="https://github.com/user-attachments/assets/1283f4ca-a894-496d-83aa-de1b5b6e76d1"> 
