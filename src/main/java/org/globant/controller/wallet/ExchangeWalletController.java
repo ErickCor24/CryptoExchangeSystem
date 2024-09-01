@@ -19,7 +19,7 @@ public class ExchangeWalletController {
     }
 
     public String screenCryptosPrice (){
-        return this.exchangeWallet.CryptosPrice();
+        return this.exchangeWallet.cryptosPrice();
     }
 
     public boolean changeStringDouble (String var){

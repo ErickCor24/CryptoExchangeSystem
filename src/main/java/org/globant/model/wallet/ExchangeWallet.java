@@ -8,7 +8,7 @@ public class ExchangeWallet extends Wallet{
         super(bitcoinCrypto, ethereumCrypto, unisWapCrypto);
     }
 
-    public String CryptosPrice (){
+    public String cryptosPrice(){
         return "BitCoin: $" + this.bitcoinCrypto.getPriceCrypto().setScale(2, RoundingMode.HALF_UP) +
                 " - Ethereum: $" + this.ethereumCrypto.getPriceCrypto().setScale(2, RoundingMode.HALF_UP)+
                 " - UnisWap: $" + this.unisWapCrypto.getPriceCrypto().setScale(2, RoundingMode.HALF_UP);

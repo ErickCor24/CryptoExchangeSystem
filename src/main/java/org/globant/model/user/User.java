@@ -31,12 +31,6 @@ public class User {
         return "@" + parts[0].toLowerCase() + random.nextInt(1,5000);
     }
 
-    @Override
-    public String toString() {
-        return "Name:" + name + ", E-mail:" + email +", Password:'" + password +
-                ", User Name: '" + userName + userWallet.toString();
-    }
-
     public List<TransactionHistory> getAllTransactions() {
         return transactionHistories;
     }
@@ -61,4 +55,9 @@ public class User {
         return userWallet;
     }
 
+    @Override
+    public String toString() {
+        return "Name:" + name + ", E-mail:" + email +", Password:'" + password +
+                ", User Name: '" + userName + userWallet.toString();
+    }
 }
