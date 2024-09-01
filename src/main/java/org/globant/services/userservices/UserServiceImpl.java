@@ -22,6 +22,14 @@ public class UserServiceImpl implements RegisterUserAccountPort, LoginUserPort, 
         this.exchangeWalletRepository = exchangeWalletRepository;
     }
 
+    /**
+     * Add user in Users repository
+     * @param id id user
+     * @param name name user
+     * @param email email user
+     * @param password pass user
+     * @return User
+     */
     @Override
     public User userRegister(int id, String name, String email, String password) {
         User user = null;
@@ -42,6 +50,12 @@ public class UserServiceImpl implements RegisterUserAccountPort, LoginUserPort, 
         return user;
     }
 
+    /**
+     * Get user account for repository
+     * @param email user email
+     * @param password password email
+     * @return User object
+     */
     @Override
     public User searchUserAccount(String email, String password) {
         var users = userMemoryRepository.getUsers();
@@ -55,6 +69,11 @@ public class UserServiceImpl implements RegisterUserAccountPort, LoginUserPort, 
         return null;
     }
 
+    /**
+     * get id of a user
+     * @param user object user to search
+     * @return Integer
+     */
     @Override
     public Integer searchIdByUser(User user) {
         var users = userMemoryRepository.getUsers();
@@ -66,11 +85,23 @@ public class UserServiceImpl implements RegisterUserAccountPort, LoginUserPort, 
         return -1;
     }
 
+    /**
+     * Change the user login repository
+     * @param id id User
+     * @param user User object to login
+     */
     @Override
     public void enterUserSystem(int id, User user) {
         loginUserRepository.changeUserLogin(id,user);
     }
 
+    /**
+     * Add history of transaction in a login user
+     * @param cryptos enum crypto
+     * @param priceAmount price amount
+     * @param cryptoAmount crypto amount
+     * @param transaction enum transaction
+     */
     @Override
     public void addHistory(Cryptos cryptos, BigDecimal priceAmount ,BigDecimal cryptoAmount, Transaction transaction) {
         String cryptoName = "";

@@ -11,6 +11,11 @@ public class ScannerRepository {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * get instance of scanner (singleton)
+     * @return instance
+     */
+
     public  static ScannerRepository getInstance(){
         if(instance == null){
             instance = new ScannerRepository();

@@ -16,6 +16,12 @@ public class User {
     private final List<TransactionHistory> transactionHistories;
 
 
+    /**
+     * Constructor of User
+     * @param name name of user
+     * @param email email of user
+     * @param password pass of user
+     */
     public User(String name, String email, String password) {
         this.name = name;
         this.userName = userNameGenerator();
@@ -25,6 +31,10 @@ public class User {
         this.transactionHistories = new ArrayList<>();
     }
 
+    /**
+     * Create a username for a user
+     * @return username
+     */
     public String userNameGenerator(){
         Random random = new Random();
         String [] parts = this.name.split(" ");
@@ -35,6 +45,10 @@ public class User {
         return transactionHistories;
     }
 
+    /**
+     * Add history to user
+     * @param transactionHistory history
+     */
     public void addTransactionHistory(TransactionHistory transactionHistory) {
         this.transactionHistories.add(transactionHistory);
     }

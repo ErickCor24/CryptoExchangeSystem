@@ -9,6 +9,9 @@ public class CryptoVariation implements Runnable {
     ExchangeWalletRepository exchangeWalletRepository = ExchangeWalletRepository.getInstance();
     Random random = new Random();
 
+    /**
+     * Method for make the price of cryptos fluctuate
+     */
     @Override
     public void run() {
         while(true) {

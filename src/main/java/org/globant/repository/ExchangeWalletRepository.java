@@ -17,6 +17,10 @@ public class ExchangeWalletRepository {
         this.exchangeWallet = new ExchangeWallet(bitcoin,ethereum,unisWap);
     }
 
+    /**
+     * Get instance of ExchangeWalletRepository
+     * @return instance
+     */
     public static ExchangeWalletRepository getInstance(){
         if(instance == null){
             instance = new ExchangeWalletRepository();
@@ -28,14 +32,26 @@ public class ExchangeWalletRepository {
         return exchangeWallet;
     }
 
+    /**
+     * Get price of bitcoin
+     * @return price
+     */
     public String getBitcoinPrice() {
         return bitcoin.getPriceCrypto().setScale(2, RoundingMode.HALF_UP).toString();
     }
 
+    /**
+     * Get price of ethereum
+     * @return price
+     */
     public String getEthereumPrice() {
         return ethereum.getPriceCrypto().setScale(2, RoundingMode.HALF_UP).toString();
     }
 
+    /**
+     * Get price of unisWap
+     * @return price
+     */
     public String getUnisWapPrice() {
         return unisWap.getPriceCrypto().setScale(2, RoundingMode.HALF_UP).toString();
     }

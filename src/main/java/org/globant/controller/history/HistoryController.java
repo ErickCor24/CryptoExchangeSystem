@@ -19,10 +19,20 @@ public class HistoryController {
 
     HistoryTransactionPort historyTransaction = new UserServiceImpl(userMemoryRepository,loginUserRepository,exchangeWalletRepository);
 
+    /**
+     * Constructor of HistoryController
+     * @param crypto
+     * @param cryptoPriceNegotiated
+     * @param cryptoAmount
+     * @param transaction
+     */
     public void addTransactionToUser(Cryptos crypto, BigDecimal cryptoPriceNegotiated, BigDecimal cryptoAmount, Transaction transaction){
         historyTransaction.addHistory(crypto, cryptoPriceNegotiated, cryptoAmount, transaction);
     }
 
+    /**
+     * Displays all transactions performed by the logged-in user.
+     */
     public void screenHistory (){
         List<TransactionHistory> histories = loginUserRepository.getUserLogin().getAllTransactions();
         if (!histories.isEmpty()) {
@@ -33,14 +43,26 @@ public class HistoryController {
             System.out.println("There are no transactions in your account");
     }
 
+    /**
+     * Method for displaying the price of a cryptocurrency
+     * @return Bitcoin price
+     */
     public String btcPrice(){
         return "Bitcoin price: $"+exchangeWalletRepository.getBitcoinPrice();
     }
 
+    /**
+     * Method for displaying the price of a cryptocurrency
+     * @return Ethereum price
+     */
     public String ethPrice(){
         return "Ethereum price: $"+exchangeWalletRepository.getEthereumPrice();
     }
 
+    /**
+     * Method for displaying the price of a cryptocurrency
+     * @return UnisWap price
+     */
     public String uniPrice(){
         return "UnisWap price: $"+exchangeWalletRepository.getUnisWapPrice();
     }

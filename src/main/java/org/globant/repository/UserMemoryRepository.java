@@ -13,6 +13,10 @@ public class UserMemoryRepository {
         this.users = new HashMap<>();
     }
 
+    /**
+     * return instance of UserMemoryRepository
+     * @return instance
+     */
     public static UserMemoryRepository getInstance(){
         if(instance == null){
             instance = new UserMemoryRepository();

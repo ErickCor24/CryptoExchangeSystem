@@ -12,6 +12,13 @@ public class TransactionHistory {
     private final BigDecimal fiatAmount;
     private final String typeTransaction;
 
+    /**
+     * Create object of Transaction history
+     * @param cryptoName name of crypto
+     * @param cryptoAmount amount of crypto
+     * @param fiatAmount amount of fiat
+     * @param typeTransaction name of type transaction
+     */
     public TransactionHistory(String cryptoName, BigDecimal cryptoAmount, BigDecimal fiatAmount, String typeTransaction) {
         this.transactionDate = LocalDateTime.now();
         this.cryptoName = cryptoName;
@@ -20,6 +27,10 @@ public class TransactionHistory {
         this.typeTransaction = typeTransaction;
     }
 
+    /**
+     *
+     * @return message of transaction
+     */
     @Override
     public String toString() {
         return ">> Transaction type:" + typeTransaction +

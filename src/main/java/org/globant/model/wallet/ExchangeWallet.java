@@ -3,11 +3,17 @@ package org.globant.model.wallet;
 import java.math.RoundingMode;
 
 public class ExchangeWallet extends Wallet{
-
+    /**
+     * constructor extends of Wallet
+     */
     public ExchangeWallet(Crypto bitcoinCrypto, Crypto ethereumCrypto, Crypto unisWapCrypto) {
         super(bitcoinCrypto, ethereumCrypto, unisWapCrypto);
     }
 
+    /**
+     * Obtain the price of all cryptos
+     * @return message
+     */
     public String cryptosPrice(){
         return "BitCoin: $" + this.bitcoinCrypto.getPriceCrypto().setScale(2, RoundingMode.HALF_UP) +
                 " - Ethereum: $" + this.ethereumCrypto.getPriceCrypto().setScale(2, RoundingMode.HALF_UP)+

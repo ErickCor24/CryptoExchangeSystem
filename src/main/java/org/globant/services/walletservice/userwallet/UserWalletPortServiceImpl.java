@@ -19,12 +19,22 @@ public class UserWalletPortServiceImpl implements DepositUserWalletPort {
         this.exchangeWalletRepository = exchangeWalletRepository;
     }
 
+    /**
+     * Deposit fiat in user wallet login repository
+     * @param amount amount to deposit
+     */
     @Override
     public void depositFiat(String amount) {
         BigDecimal fiatAmount = new BigDecimal(amount);
         userMemoryRepository.getUsers().get(loginUserRepository.getUserId()).getUserWallet().addFiat(fiatAmount);
     }
 
+    /**
+     * Deposit crypto in user wallet login repository
+     * @param cryptos enum crypto
+     * @param amount amount to deposit
+     * @return boolean
+     */
     @Override
     public boolean depositCrypto(Cryptos cryptos, String amount) {
         boolean flag = false;
@@ -60,6 +70,11 @@ public class UserWalletPortServiceImpl implements DepositUserWalletPort {
         return flag;
     }
 
+    /**
+     * @param cryptos enum crypto
+     * @param amount amount fiat
+     * @return boolean
+     */
     @Override
     public boolean allowedUserFunds(Cryptos cryptos,String amount) {
         boolean flag = false;

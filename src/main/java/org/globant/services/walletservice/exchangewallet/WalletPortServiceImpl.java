@@ -13,6 +13,12 @@ public class WalletPortServiceImpl implements WithdrawExchangeWalletPort {
         this.exchangeWalletRepository = ExchangeWalletRepository.getInstance();
     }
 
+    /**
+     * Withdraw cryptos of exchange
+     * @param cryptos enum crypto
+     * @param var amount to withdraw
+     * @return boolean
+     */
     @Override
     public boolean withdraw(Cryptos cryptos, String var) {
         BigDecimal amount = new BigDecimal(var);
