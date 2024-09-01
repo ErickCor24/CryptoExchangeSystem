@@ -14,6 +14,14 @@ public class Order {
     private User user;
     private final int userId;
 
+    /**
+     * Constructor f Order
+     * @param crypto enum crypto
+     * @param cryptoAmount crypto amount
+     * @param maximumPrice maximum price paid
+     * @param user user order
+     * @param userId user id order
+     */
     public Order(Cryptos crypto, String cryptoAmount, String maximumPrice, User user, int userId) {
         this.crypto = crypto;
         this.cryptoAmount = new BigDecimal(cryptoAmount);
@@ -26,10 +34,6 @@ public class Order {
         return crypto;
     }
 
-//    public void setCrypto(Cryptos crypto) {
-//        this.crypto = crypto;
-//    }
-
     public int getUserId() {
         return userId;
     }
@@ -41,7 +45,6 @@ public class Order {
     public BigDecimal getMaximumPrice() {
         return maximumPrice;
     }
-
 
     @Override
     public String toString() {

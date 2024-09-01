@@ -5,7 +5,16 @@ import org.globant.model.user.User;
 
 public class BuyOrder extends Order {
 
-    public BuyOrder(Cryptos crypto, String cryptoMount, String maximumPrice, User user, int userId) {
-        super(crypto, cryptoMount, maximumPrice, user, userId);
+    /**
+     * Constructor of BuyOrder extends of Order
+     * @param crypto enum crypto
+     * @param cryptoAmount crypto amount
+     * @param maximumPrice maximum price paid
+     * @param user user order
+     * @param userId user id order
+     */
+
+    public BuyOrder(Cryptos crypto, String cryptoAmount, String maximumPrice, User user, int userId) {
+        super(crypto, cryptoAmount, maximumPrice, user, userId);
     }
 }

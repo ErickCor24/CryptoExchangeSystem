@@ -25,6 +25,13 @@ public class BuyOrderServiceImpl implements BuyOrderPort, SaleOrderPort{
         this.userMemoryRepository = userMemoryRepository;
     }
 
+    /**
+     * Add buy order in repository
+     * @param crypto enum crypto
+     * @param amountCrypto amount crypto
+     * @param maximumPrice maximum price
+     * @return BuyOrder object
+     */
     @Override
     public BuyOrder addBuyOrder(Cryptos crypto, String amountCrypto, String maximumPrice) {
         User user = loginUserRepository.getUserLogin();
@@ -34,7 +41,13 @@ public class BuyOrderServiceImpl implements BuyOrderPort, SaleOrderPort{
         return buyOrder;
     }
 
-
+    /**
+     * Add sale order in repository
+     * @param crypto enum crypto
+     * @param amountCrypto amount crypto
+     * @param maximumPrice maximum price
+     * @return SalesOrder object
+     */
     @Override
     public SalesOrder addSalesOrder(Cryptos crypto, String amountCrypto, String maximumPrice) {
         User user = loginUserRepository.getUserLogin();
@@ -44,6 +57,11 @@ public class BuyOrderServiceImpl implements BuyOrderPort, SaleOrderPort{
         return salesOrder;
     }
 
+    /**
+     * Search buy order for assign a sell order
+     * @param salesOrder salesOrderObject
+     * @return boolean
+     */
     @Override
     public boolean searchBuyOrder(SalesOrder salesOrder) {
         List<BuyOrder> buys = buyOrderRepository.getBuyOrders();
@@ -76,6 +94,11 @@ public class BuyOrderServiceImpl implements BuyOrderPort, SaleOrderPort{
         return false;
     }
 
+    /**
+     * Search sell order for assign a buy order
+     * @param buyOrder BuyOrder object
+     * @return boolean
+     */
     @Override
     public boolean searchSaleOrder(BuyOrder buyOrder) {
         List<SalesOrder> sales = salesOrderRepository.getSalesOrders();

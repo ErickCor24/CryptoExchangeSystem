@@ -13,6 +13,10 @@ public class BuyOrderRepository {
         this.buyOrders = new ArrayList<>();
     }
 
+    /**
+     * Get instance for BuyOrderRepository (Singleton)
+     * @return instance
+     */
     public static BuyOrderRepository getInstance() {
         if (instance == null) {
             instance = new BuyOrderRepository();
@@ -20,10 +24,18 @@ public class BuyOrderRepository {
         return instance;
     }
 
+    /**
+     * Obtain all buy orders
+     * @return list
+     */
     public List<BuyOrder> getBuyOrders() {
         return buyOrders;
     }
 
+    /**
+     * Add buy order in the instance
+     * @param buyOrder buy order
+     */
     public void addBuyOrder (BuyOrder buyOrder){
         this.buyOrders.add(buyOrder);
     }

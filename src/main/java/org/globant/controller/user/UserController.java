@@ -21,6 +21,13 @@ public class UserController {
     private final RegisterUserAccountPort registerUserAccount = new UserServiceImpl(userMemoryRepository, loginUserRepository,exchangeWalletRepository);
     private final LoginUserPort loginUser = new UserServiceImpl(userMemoryRepository, loginUserRepository,exchangeWalletRepository);
 
+    /**
+     *  Method for register a user in the system (user repository)
+     * @param name name of user
+     * @param email email of user with @
+     * @param password pass of user for enter in the system
+     * @return message information
+     */
     public String registerUserRepository(String name, String email, String password) {
         try {
             if (!(name.isEmpty() || email.isEmpty() || password.isEmpty())) {
@@ -43,6 +50,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Method to login user register in te system
+     * @param email email of user register
+     * @param password pass of user register
+     * @return boolean
+     */
     public boolean loginUserSystem (String email, String password){
         if(!(email.isEmpty() || password.isEmpty())) {
             var userLogin = loginUser.searchUserAccount(email, password);
@@ -65,10 +78,17 @@ public class UserController {
         }
     }
 
+    /**
+     * method for present de user name of user
+     * @return message
+     */
     public String userNameLogin (){
         return loginUserRepository.getUserNameLogin();
     }
 
+    /**
+     * Method for present the wallet of user
+     */
     public void userWalletScreen(){
         if(!loginUserRepository.getUserLogin().getUserWallet().toString().isEmpty()){
             System.out.println(loginUserRepository.getUserLogin().getUserWallet());
@@ -78,6 +98,10 @@ public class UserController {
 
     }
 
+    /**
+     * method for register the id in a new account
+     * @return int id
+     */
     private int lastUserId (){
         if(users.isEmpty()){
             return 0;

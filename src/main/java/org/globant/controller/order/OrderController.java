@@ -26,10 +26,21 @@ public class OrderController {
     private final BuyOrderPort buyOrder = new BuyOrderServiceImpl(salesOrderRepository, buyOrderRepository, loginUserRepository, userMemoryRepository);
     private final SaleOrderPort saleOrder = new BuyOrderServiceImpl(salesOrderRepository, buyOrderRepository, loginUserRepository, userMemoryRepository);
 
+    /**
+     * constructor of OrderController
+     * @param historyController controller
+     */
     public OrderController(HistoryController historyController) {
         this.historyController = historyController;
     }
 
+    /**
+     * Method to register the purchase order in the repository
+     * @param cryptos enum
+     * @param cryptoAmount crypto amount
+     * @param maximumPrice maximum price
+     * @return information message
+     */
     public String makeBuyOrder(Cryptos cryptos, String cryptoAmount, String maximumPrice) {
         BigDecimal price;
         BigDecimal amount;
@@ -41,7 +52,6 @@ public class OrderController {
         } catch (NumberFormatException e) {
             return "Do not enter empty fields";
         }
-
         if (controlFiatBuyOrder(price)) {
             if (price.compareTo(BigDecimal.ZERO) > 0 && amount.compareTo(BigDecimal.ZERO) > 0) {
                 if (loginUserRepository.getUserLogin().getUserWallet().getFiat().compareTo(price) >= 0) {
@@ -62,6 +72,13 @@ public class OrderController {
             return "Yor account not have the fiat assigned, check your fiat";
     }
 
+    /**
+     *  Method to register the sell order in the repository
+     * @param cryptos enum
+     * @param cryptoAmount crypto amount
+     * @param maximumPrice maximum price
+     * @return information message
+     */
     public String makeSalesOrder(Cryptos cryptos, String cryptoAmount, String maximumPrice) {
         BigDecimal price;
         BigDecimal amount;
@@ -73,7 +90,6 @@ public class OrderController {
         } catch (NumberFormatException e) {
             return "Do not enter empty fields";
         }
-
         if (controlCryptoBuyOrder(cryptos, amount)) {
             boolean flag = isFlag(cryptos, amount);
             if (price.compareTo(BigDecimal.ZERO) > 0 && amount.compareTo(BigDecimal.ZERO) > 0) {
@@ -94,6 +110,12 @@ public class OrderController {
             return "Yor account not have the crypto mount assigned, check your crypto amount";
     }
 
+    /**
+     * Method of the class that returns if the user has enough cryptocurrencies.
+     * @param cryptos enum
+     * @param amount amount
+     * @return boolean
+     */
     private boolean isFlag(Cryptos cryptos, BigDecimal amount) {
         boolean flag = false;
         switch (cryptos) {
@@ -107,6 +129,11 @@ public class OrderController {
         return flag;
     }
 
+    /**
+     * Method to control the user's fiat and that of active purchase orders
+     * @param maximumPrice maximum price to buy
+     * @return boolean
+     */
     private boolean controlFiatBuyOrder(BigDecimal maximumPrice) {
         BigDecimal fiatOrderMount = BigDecimal.ZERO;
         BigDecimal userFiat = loginUserRepository.getUserLogin().getUserWallet().getFiat();
@@ -119,6 +146,12 @@ public class OrderController {
         return !(fiatOrderMount.compareTo(userFiat) > 0);
     }
 
+    /**
+     * Method to control the user's crypto amount and the amount of active sell orders.
+     * @param cryptos enum
+     * @param cryptoAmount crypto amount to sell
+     * @return boolean
+     */
     private boolean controlCryptoBuyOrder(Cryptos cryptos, BigDecimal cryptoAmount) {
         BigDecimal cryptoSaleOrder = BigDecimal.ZERO;
         BigDecimal userCryptoAmount = getCryptoAmount(cryptos);
@@ -135,6 +168,11 @@ public class OrderController {
         return userCryptoAmount.compareTo(cryptoSaleOrder) >= 0;
     }
 
+    /**
+     *method to obtain the user's cryptocurrency amount
+     * @param cryptos enum
+     * @return BigDecimal
+     */
     private BigDecimal getCryptoAmount(Cryptos cryptos) {
         BigDecimal userCryptoAmount = null;
         switch (cryptos) {

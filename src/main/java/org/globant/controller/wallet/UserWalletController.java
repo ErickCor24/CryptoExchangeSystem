@@ -13,6 +13,12 @@ public class UserWalletController {
     ExchangeWalletRepository exchangeWalletRepository = ExchangeWalletRepository.getInstance();
     UserWalletPortServiceImpl userWalletService = new UserWalletPortServiceImpl(loginUserRepository,userMemoryRepository,exchangeWalletRepository);
 
+    /**
+     * Deposit cryptos in user wallet
+     * @param cryptos enum
+     * @param amount amount crypto
+     * @return boolean
+     */
     public boolean depositUserWallet (Cryptos cryptos, String amount){
         if(userWalletService.allowedUserFunds(cryptos, amount)){
             return userWalletService.depositCrypto(cryptos, amount);
@@ -20,6 +26,11 @@ public class UserWalletController {
             return false;
     }
 
+    /**
+     * Deposit fiat in user wallet
+     * @param amount fiat amount
+     * @return message
+     */
     public String depositFiat(String amount){
         try {
             if (Double.parseDouble(amount)>0) {
