@@ -91,15 +91,21 @@ public class MarketView {
     }
 
     private void cryptoBuyView(Cryptos cryptos, String cryptoType){
+        switch (cryptos){
+            case BITCOIN -> color.blueColor(historyController.btcPrice());
+            case ETHEREUM -> color.blueColor(historyController.ethPrice());
+            case UNISWAP -> color.blueColor(historyController.uniPrice());
+        }
+        blankSpace();
         color.yellowColor("Enter an amount greater than 0");
         String amount = amountEnter();
         blankSpace();
         if (exchangeWalletController.changeStringDouble(amount)){
             if(exchangeWalletController.withdrawExchange(cryptos, amount)){
                 if(userWalletController.depositUserWallet(cryptos, amount)){
-                    historyController.addTransactionToUser(cryptos, new BigDecimal(amount), Transaction.DIRECT_BUY);
+                    historyController.addTransactionToUser(cryptos,BigDecimal.ZERO, new BigDecimal(amount), Transaction.DIRECT_BUY);
                     color.greenColor(cryptoType + " sell successfully");
-                    System.out.println(exchangeWalletController.screenExchangeWallet());
+//                    System.out.println(exchangeWalletController.screenExchangeWallet());
                 }
                 else {
                     color.redColor("Your account not have necessary fiat");

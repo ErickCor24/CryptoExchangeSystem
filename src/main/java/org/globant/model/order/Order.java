@@ -9,10 +9,10 @@ import java.math.RoundingMode;
 public abstract class Order {
 
     private Cryptos crypto;
-    private BigDecimal cryptoMount;
-    private BigDecimal maximumPrice;
+    private final BigDecimal cryptoMount;
+    private final BigDecimal maximumPrice;
     private User user;
-    private int userId;
+    private final int userId;
 
     public Order(Cryptos crypto, String cryptoMount, String maximumPrice, User user, int userId) {
         this.crypto = crypto;
@@ -38,17 +38,11 @@ public abstract class Order {
         return cryptoMount;
     }
 
-    public void setCryptoMount(BigDecimal cryptoMount) {
-        this.cryptoMount = cryptoMount;
-    }
 
     public BigDecimal getMaximumPrice() {
         return maximumPrice;
     }
 
-    public void setMaximumPrice(BigDecimal maximumPrice) {
-        this.maximumPrice = maximumPrice;
-    }
 
     public User getUser() {
         return user;

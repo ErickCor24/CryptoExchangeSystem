@@ -9,9 +9,9 @@ public class ExchangeWallet extends Wallet{
     }
 
     public String CryptosPrice (){
-        return "BitCoin: $" + this.bitcoinCrypto.getPriceCrypto().toString() +
-                " - Ethereum: $" + this.ethereumCrypto.getPriceCrypto().toString() +
-                " - UnisWap: $" + this.unisWapCrypto.getPriceCrypto().toString();
+        return "BitCoin: $" + this.bitcoinCrypto.getPriceCrypto().setScale(2, RoundingMode.HALF_UP) +
+                " - Ethereum: $" + this.ethereumCrypto.getPriceCrypto().setScale(2, RoundingMode.HALF_UP)+
+                " - UnisWap: $" + this.unisWapCrypto.getPriceCrypto().setScale(2, RoundingMode.HALF_UP);
     }
 
     @Override

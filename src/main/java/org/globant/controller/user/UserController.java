@@ -17,16 +17,19 @@ public class UserController {
     private final Map<Integer,User> users = userMemoryRepository.getUsers();
     private final LoginUserRepository loginUserRepository = LoginUserRepository.getInstance();
     private final ExchangeWalletRepository exchangeWalletRepository = ExchangeWalletRepository.getInstance();
-    private User user;
 
     private final RegisterUserAccountPort registerUserAccount = new UserServiceImpl(userMemoryRepository, loginUserRepository,exchangeWalletRepository);
     private final LoginUserPort loginUser = new UserServiceImpl(userMemoryRepository, loginUserRepository,exchangeWalletRepository);
 
     public String registerUserRepository(String name, String email, String password) {
         try {
-            if(!(name.isEmpty() || email.isEmpty() || password.isEmpty())) {
-                int id = lastUserId();
-                user = registerUserAccount.userRegister(id, name, email, password);
+            if (!(name.isEmpty() || email.isEmpty() || password.isEmpty())) {
+                User user;
+                if (email.contains("@")) {
+                    int id = lastUserId();
+                    user = registerUserAccount.userRegister(id, name, email, password);
+                } else
+                    return "The email format is invalid";
                 if (user != null) {
                     return "User register Successful :)\nYour username is: " + user.getUserName();
                 } else {
@@ -35,8 +38,8 @@ public class UserController {
             } else {
                 return "You cannot enter empty fields";
             }
-        } catch (UserRegisterException e){
-            return  "A problem occurred while registering your user ";
+        } catch (UserRegisterException e) {
+            return "A problem occurred while registering your user ";
         }
     }
 
