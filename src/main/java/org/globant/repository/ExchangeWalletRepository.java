@@ -3,6 +3,8 @@ package org.globant.repository;
 import org.globant.model.wallet.Crypto;
 import org.globant.model.wallet.ExchangeWallet;
 
+import java.math.RoundingMode;
+
 public class ExchangeWalletRepository {
     private static ExchangeWalletRepository instance;
     private final ExchangeWallet exchangeWallet;
@@ -27,15 +29,15 @@ public class ExchangeWalletRepository {
     }
 
     public String getBitcoinPrice() {
-        return bitcoin.getPriceCrypto().toString();
+        return bitcoin.getPriceCrypto().setScale(2, RoundingMode.HALF_UP).toString();
     }
 
     public String getEthereumPrice() {
-        return ethereum.getPriceCrypto().toString();
+        return ethereum.getPriceCrypto().setScale(2, RoundingMode.HALF_UP).toString();
     }
 
     public String getUnisWapPrice() {
-        return unisWap.getPriceCrypto().toString();
+        return unisWap.getPriceCrypto().setScale(2, RoundingMode.HALF_UP).toString();
     }
 
 }

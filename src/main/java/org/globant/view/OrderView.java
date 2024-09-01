@@ -52,10 +52,6 @@ public class OrderView {
         }
     }
 
-    public void screenOrders(){
-        orderController.ordersScreen();
-    }
-
     private Cryptos cryptoSelect(){
         do {
             System.out.println("Select the crypto to buy: \n1. Bitcoin \n2. Ethereum \n3. UnisWap ");

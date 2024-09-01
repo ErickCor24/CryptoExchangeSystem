@@ -27,14 +27,6 @@ public class Crypto {
         return abbreviationCrypto;
     }
 
-    public int getIdCrypto() {
-        return idCrypto;
-    }
-
-    public String getNameCrypto() {
-        return nameCrypto;
-    }
-
     public BigDecimal getAmountCrypto() {
         return amountCrypto;
     }
@@ -57,8 +49,14 @@ public class Crypto {
         return priceCrypto;
     }
 
-    public void setPriceCrypto(BigDecimal priceCrypto) {
-        this.priceCrypto = priceCrypto;
+    public void addPriceCrypto(BigDecimal priceCrypto) {
+        this.priceCrypto = this.priceCrypto.add(priceCrypto);
+    }
+
+    public void subtractPriceCrypto(BigDecimal priceCrypto) {
+        if(this.priceCrypto.compareTo(priceCrypto) >= 0){
+            this.priceCrypto = this.priceCrypto.subtract(priceCrypto);
+        }
     }
 
     @Override

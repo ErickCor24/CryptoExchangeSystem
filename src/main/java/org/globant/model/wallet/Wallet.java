@@ -23,23 +23,14 @@ public class Wallet {
         return bitcoinCrypto;
     }
 
-    public void setBitcoinCrypto(Crypto bitcoinCrypto) {
-        this.bitcoinCrypto = bitcoinCrypto;
-    }
 
     public Crypto getEthereumCrypto() {
         return ethereumCrypto;
     }
 
-    public void setEthereumCrypto(Crypto ethereumCrypto) {
-        this.ethereumCrypto = ethereumCrypto;
-    }
 
     public Crypto getUnisWapCrypto() {
         return unisWapCrypto;
     }
 
-    public void setUnisWapCrypto(Crypto unisWapCrypto) {
-        this.unisWapCrypto = unisWapCrypto;
-    }
 }

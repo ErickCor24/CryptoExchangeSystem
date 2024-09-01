@@ -1,6 +1,7 @@
 package org.globant.services.userservices;
 
 import org.globant.enums.Cryptos;
+import org.globant.enums.Transaction;
 import org.globant.model.history.TransactionHistory;
 import org.globant.repository.ExchangeWalletRepository;
 import org.globant.repository.LoginUserRepository;
@@ -71,20 +72,38 @@ public class UserServiceImpl implements RegisterUserAccountPort, LoginUserPort, 
     }
 
     @Override
-    public void addHistory(Cryptos cryptos, BigDecimal cryptoPriceNegotiated, String transaction) {
+    public void addHistory(Cryptos cryptos, BigDecimal priceAmount ,BigDecimal cryptoAmount, Transaction transaction) {
         String cryptoName = "";
+        BigDecimal price = null;
+        String typeTransaction = "";
+        TransactionHistory transactionHistory;
+
         switch (cryptos) {
             case BITCOIN -> {
                 cryptoName = "Bitcoin";
+                price = new BigDecimal(exchangeWalletRepository.getBitcoinPrice());
             }
             case ETHEREUM -> {
                 cryptoName = "Ethereum";
+                price = new BigDecimal(exchangeWalletRepository.getBitcoinPrice());
             }
             case UNISWAP -> {
                 cryptoName = "UnisWap";
+                price = new BigDecimal(exchangeWalletRepository.getBitcoinPrice());
             }
         }
-        TransactionHistory transactionHistory = new TransactionHistory(cryptoName,cryptoPriceNegotiated,cryptoPriceNegotiated,transaction);
+
+        switch (transaction) {
+            case DIRECT_BUY -> typeTransaction = " Buy direct to exchange";
+            case BUY_ORDER -> typeTransaction = " Buy in market P2P";
+            case SELL_ORDER -> typeTransaction = " Shell in market P2P";
+        }
+
+        if(transaction == Transaction.DIRECT_BUY){
+            transactionHistory = new TransactionHistory(cryptoName,cryptoAmount, cryptoAmount.multiply(price), typeTransaction);
+        } else
+            transactionHistory = new TransactionHistory(cryptoName,cryptoAmount, priceAmount, typeTransaction);
+
         userMemoryRepository.getUsers().get(loginUserRepository.getUserId()).addTransactionHistory(transactionHistory);
     }
 }

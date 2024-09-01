@@ -3,6 +3,7 @@ package org.globant;
 import org.globant.controller.history.HistoryController;
 import org.globant.controller.order.OrderController;
 import org.globant.controller.user.UserController;
+import org.globant.controller.wallet.CryptoVariation;
 import org.globant.controller.wallet.ExchangeWalletController;
 import org.globant.controller.wallet.UserWalletController;
 import org.globant.repository.ScannerRepository;
@@ -26,6 +27,8 @@ public class CryptoExchangeApp {
         MarketView marketView = new MarketView(orderView,exchangeWalletController,historyController,userWalletController, scanner, color);
         HomeView homeView = new HomeView(marketView,historyController, exchangeWalletController, userController, userWalletController, scanner, color);
         ConsoleView view = new ConsoleView(homeView, userController, scanner, color);
+        CryptoVariation cryptoVariation = new CryptoVariation();
+        new Thread(cryptoVariation).start();
         view.execute();
     }
 }

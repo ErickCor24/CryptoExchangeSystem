@@ -29,19 +29,24 @@ public class OrderController {
     }
 
     public String makeBuyOrder(Cryptos cryptos, String cryptoAmount, String maximumPrice) {
-
-        cryptoAmount = cryptoAmount.replace(",", ".");
-        maximumPrice = maximumPrice.replace(",", ".");
-        BigDecimal price = new BigDecimal(maximumPrice);
-        BigDecimal amount = new BigDecimal(cryptoAmount);
+        BigDecimal price;
+        BigDecimal amount;
+        try {
+            cryptoAmount = cryptoAmount.replace(",", ".");
+            maximumPrice = maximumPrice.replace(",", ".");
+            price = new BigDecimal(maximumPrice);
+            amount = new BigDecimal(cryptoAmount);
+        } catch (NumberFormatException e){
+            return "Do not enter empty fields";
+        }
         if(price.compareTo(BigDecimal.ZERO) > 0 && amount.compareTo(BigDecimal.ZERO) > 0) {
             if (loginUserRepository.getUserLogin().getUserWallet().getFiat().compareTo(price) >= 0) {
                 var buy = buyOrder.addBuyOrder(cryptos, cryptoAmount, maximumPrice);
                 if (buyOrder.searchSaleOrder(buy)) {
-                    historyController.addTransactionToUser(cryptos, price, Transaction.BUY_ORDER);
+                    historyController.addTransactionToUser(cryptos, price,amount, Transaction.BUY_ORDER);
                     return "The system found a order sale for you order";
                 } else {
-                    historyController.addTransactionToUser(cryptos, price, Transaction.BUY_ORDER);
+                    historyController.addTransactionToUser(cryptos, price, amount, Transaction.BUY_ORDER);
                     return "The system is waiting for a order sale for you order";
                 }
             } else {
@@ -52,18 +57,25 @@ public class OrderController {
     }
 
     public String makeSalesOrder(Cryptos cryptos, String cryptoAmount, String maximumPrice) {
-        cryptoAmount = cryptoAmount.replace(",", ".");
-        maximumPrice = maximumPrice.replace(",", ".");
-        BigDecimal price = new BigDecimal(maximumPrice);
-        BigDecimal amount = new BigDecimal(cryptoAmount);
+        BigDecimal price;
+        BigDecimal amount;
+        try {
+            cryptoAmount = cryptoAmount.replace(",", ".");
+            maximumPrice = maximumPrice.replace(",", ".");
+            price = new BigDecimal(maximumPrice);
+            amount = new BigDecimal(cryptoAmount);
+        } catch (NumberFormatException e) {
+            return "Do not enter empty fields";
+        }
+
         boolean flag = isFlag(cryptos, amount);
         if (flag) {
             var sale = saleOrder.addSalesOrder(cryptos, cryptoAmount, maximumPrice);
             if (saleOrder.searchBuyOrder(sale)) {
-                historyController.addTransactionToUser(cryptos, price, Transaction.SELL_ORDER);
+                historyController.addTransactionToUser(cryptos, price, amount ,Transaction.SELL_ORDER);
                 return "The system found a order buy for you order";
             } else {
-                historyController.addTransactionToUser(cryptos, price, Transaction.SELL_ORDER);
+                historyController.addTransactionToUser(cryptos, price, amount ,Transaction.SELL_ORDER);
                 return "The system is waiting for a order buy for you order";
             }
         } else
@@ -80,7 +92,7 @@ public class OrderController {
         return flag;
     }
 
-    public void ordersScreen (){
+    public void ordersScreen() {
         System.out.println("BUYS");
         System.out.println(buyOrderRepository.getBuyOrders());
 
